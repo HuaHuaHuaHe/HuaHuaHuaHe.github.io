@@ -8,18 +8,18 @@
   <link rel="dns-prefetch" href="http://yoursite.com">
   <title>MySQL索引 | Hetianhan的博客</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="总结一下索引失效情况： https://www.cnblogs.com/liehen2046/p/11052666.html 针对于某些长字符串，可以通过前缀索引优化。 12/*查询表s1中name列的前缀字符串出现次数*/SELECT count(*) as a,LEFT(name,3) as b from s1 GROUP BY b ORDER BY b LIMIT 100;">
+  <meta name="description" content="总结一下索引失效情况： https://www.cnblogs.com/liehen2046/p/11052666.html 针对于某些长字符串，可以通过前缀索引优化。 12/*查询表s1中name列的前缀字符串出现次数*/SELECT count(*) as a,LEFT(name,3) as b from s1 GROUP BY b ORDER BY b LIMIT 100;  SQL语句在数">
 <meta name="keywords" content="Android开发，Java，服务器？？？">
 <meta property="og:type" content="article">
 <meta property="og:title" content="MySQL索引">
 <meta property="og:url" content="http://yoursite.com/2020/10/21/MySQL索引/index.html">
 <meta property="og:site_name" content="Hetianhan的博客">
-<meta property="og:description" content="总结一下索引失效情况： https://www.cnblogs.com/liehen2046/p/11052666.html 针对于某些长字符串，可以通过前缀索引优化。 12/*查询表s1中name列的前缀字符串出现次数*/SELECT count(*) as a,LEFT(name,3) as b from s1 GROUP BY b ORDER BY b LIMIT 100;">
+<meta property="og:description" content="总结一下索引失效情况： https://www.cnblogs.com/liehen2046/p/11052666.html 针对于某些长字符串，可以通过前缀索引优化。 12/*查询表s1中name列的前缀字符串出现次数*/SELECT count(*) as a,LEFT(name,3) as b from s1 GROUP BY b ORDER BY b LIMIT 100;  SQL语句在数">
 <meta property="og:locale" content="default">
-<meta property="og:updated_time" content="2020-10-25T16:07:27.257Z">
+<meta property="og:updated_time" content="2020-10-29T06:29:23.868Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="MySQL索引">
-<meta name="twitter:description" content="总结一下索引失效情况： https://www.cnblogs.com/liehen2046/p/11052666.html 针对于某些长字符串，可以通过前缀索引优化。 12/*查询表s1中name列的前缀字符串出现次数*/SELECT count(*) as a,LEFT(name,3) as b from s1 GROUP BY b ORDER BY b LIMIT 100;">
+<meta name="twitter:description" content="总结一下索引失效情况： https://www.cnblogs.com/liehen2046/p/11052666.html 针对于某些长字符串，可以通过前缀索引优化。 12/*查询表s1中name列的前缀字符串出现次数*/SELECT count(*) as a,LEFT(name,3) as b from s1 GROUP BY b ORDER BY b LIMIT 100;  SQL语句在数">
   
     <link rel="alternative" href="/atom.xml" title="Hetianhan的博客" type="application/atom+xml">
   
@@ -184,6 +184,10 @@
 <p><a href="https://www.cnblogs.com/liehen2046/p/11052666.html" target="_blank" rel="noopener">https://www.cnblogs.com/liehen2046/p/11052666.html</a></p>
 <p>针对于某些长字符串，可以通过前缀索引优化。</p>
 <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/*查询表s1中name列的前缀字符串出现次数*/</span></span><br><span class="line"><span class="keyword">SELECT</span> <span class="keyword">count</span>(*) <span class="keyword">as</span> a,<span class="keyword">LEFT</span>(<span class="keyword">name</span>,<span class="number">3</span>) <span class="keyword">as</span> b <span class="keyword">from</span> s1 <span class="keyword">GROUP</span> <span class="keyword">BY</span> b <span class="keyword">ORDER</span> <span class="keyword">BY</span> b <span class="keyword">LIMIT</span> <span class="number">100</span>;</span><br></pre></td></tr></table></figure>
+
+<h2 id="SQL语句在数据库中到底是如何运行的？"><a href="#SQL语句在数据库中到底是如何运行的？" class="headerlink" title="SQL语句在数据库中到底是如何运行的？"></a>SQL语句在数据库中到底是如何运行的？</h2><p>系统从磁盘读取数据到内存时是以<strong>磁盘块（block）</strong>为基本单位的，位于同一个磁盘块中的数据会被一次性读取出来，而不是需要什么取什么。</p>
+<p>InnoDB存储引擎有<strong>页（Page）</strong>的概念，页是磁盘管理的最小单位。InnoDB存储引擎中默认每个页的大小为16KB，通过参数Innodb_page_size将页的大小设置为4K、8K、16K，在MySQL中可以通过如下命令查看页的大小。</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">show</span> <span class="keyword">variables</span> <span class="keyword">like</span> <span class="string">'innodb_page_size'</span></span><br></pre></td></tr></table></figure>
 
 
       
@@ -410,11 +414,11 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">Java</a>
+                <a href="javascript:void(0)" class="js-tag color3">android</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">android</a>
+                <a href="javascript:void(0)" class="js-tag color5">Java</a>
               </li>
             
             <div class="clearfix"></div>

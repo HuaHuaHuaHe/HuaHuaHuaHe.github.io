@@ -161,148 +161,6 @@
           <div id="js-content" class="content-ll">
             
   
-    <article id="post-SpringBoot_Package组织方式" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2020/04/24/SpringBoot_Package组织方式/">SpringBoot组织结构</a>
-    </h1>
-  
-
-        
-        <a href="/2020/04/24/SpringBoot_Package组织方式/" class="archive-article-date">
-  	<time datetime="2020-04-23T16:00:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-04-24</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <ul>
-<li><code>root package</code>：<code>com.example.myproject</code>，所有的类和其他package都在root package之下。</li>
-<li>应用主类：<code>Application.java</code>，该类直接位于<code>root package</code>下。通常我们会在应用主类中做一些框架配置扫描等配置，我们放在root package下可以帮助程序减少手工配置来加载到我们希望被Spring加载的内容</li>
-<li><code>com.example.myproject.domain</code>包：用于定义实体映射关系与数据访问相关的接口和实现</li>
-<li><code>com.example.myproject.service</code>包：用于编写业务逻辑相关的接口与实现</li>
-<li><code>com.example.myproject.web</code>：用于编写Web层相关的实现，比如：Spring MVC的Controller等</li></ul>
-        
-          <a class="article-more-a" href="/2020/04/24/SpringBoot_Package组织方式/#more">more >></a>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2020/04/24/SpringBoot_Package组织方式/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-小记：疫情期间认真准备实习" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2020/04/20/小记：疫情期间认真准备实习/">Java核心技术</a>
-    </h1>
-  
-
-        
-        <a href="/2020/04/20/小记：疫情期间认真准备实习/" class="archive-article-date">
-  	<time datetime="2020-04-19T16:00:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-04-20</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>小记：疫情期间认真准备实习</p>
-<h5 id="Java“白皮书关键术语”"><a href="#Java“白皮书关键术语”" class="headerlink" title="Java“白皮书关键术语”"></a>Java“白皮书关键术语”</h5><ol>
-<li><p>简单性：摒弃C++很多很少使用、难以理解、易混淆的特性</p>
-</li>
-<li><p>面向对象：面向对象设计是一种程序设计技术。</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//所有的对象都是由类描述的，但是不是所有的类都在描述对象。</span></span><br></pre></td></tr></table></figure>
-</li>
-<li><p>分布式：指Java程序可以通过URL打开和访问网络上的对象。</p></li></ol>
-        
-          <a class="article-more-a" href="/2020/04/20/小记：疫情期间认真准备实习/#more">more >></a>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2020/04/20/小记：疫情期间认真准备实习/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
     <article id="post-MyBatis及 SpringBoot解决代码冗余" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -788,6 +646,88 @@
 
 
   
+    <article id="post-润叶" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2019/07/08/润叶/">平凡的世界有感</a>
+    </h1>
+  
+
+        
+        <a href="/2019/07/08/润叶/" class="archive-article-date">
+  	<time datetime="2019-07-07T16:00:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-07-08</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h3 id="润叶"><a href="#润叶" class="headerlink" title="润叶"></a>润叶</h3><p>​                        <img src="/.com//F:%5Cblog%5Csource%5Cimages%5Cblog_images%5Crunye_shaoan.jpg" alt></p>
+<p>​        可能润叶是最悲哀的，那这样讲李向前应该也是最悲哀的（当然他是自私的，那润叶是代表那些不敢反抗的可怜人吗？？）！那荒诞的世道下两个可怜人，一个为了爱情肝肠寸断，一个为了爱情付出自己的一切。我又怎么能怪耿直的李向前呢？就算他们分开，润叶的少安也早就另谋他处了。</p>
+        
+          <a class="article-more-a" href="/2019/07/08/润叶/#more">more >></a>
+        
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+        <div class="article-pop-out tagcloud">
+          <i class="icon-tuding"></i>
+          <a class="article-tag-list-link color3">置顶</a>
+        </div>
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">生活</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2019/07/08/润叶/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
     <article id="post-Android登录+服务器(Tomcat)" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -820,6 +760,83 @@
       
         <p class="article-more-link">
           <a class="article-more-a" href="/2019/06/10/Android登录+服务器(Tomcat)/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
+    <article id="post-android问题总结" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2019/06/07/android问题总结/">Android问题总结</a>
+    </h1>
+  
+
+        
+        <a href="/2019/06/07/android问题总结/" class="archive-article-date">
+  	<time datetime="2019-06-06T16:00:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-06-07</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>1、EditText无法获取值？？？</p>
+<p>​    只能在监听中获取。。。。。editText.setOnClickListener(new View.OnClickListener()</p>
+        
+          <a class="article-more-a" href="/2019/06/07/android问题总结/#more">more >></a>
+        
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">Android</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2019/06/07/android问题总结/">展开全文 >></a>
         </p>
       
 
@@ -962,11 +979,11 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">Java</a>
+                <a href="javascript:void(0)" class="js-tag color3">android</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">android</a>
+                <a href="javascript:void(0)" class="js-tag color5">Java</a>
               </li>
             
             <div class="clearfix"></div>
