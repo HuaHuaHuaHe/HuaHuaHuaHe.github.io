@@ -20,19 +20,22 @@
     var CONFIG = {"hostname":"yoursite.com","root":"/","scheme":"Pisces","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
   </script>
 
-  <meta name="description" content="西柚在读废物研究生，野生程序员，擅长吃喝玩乐">
-<meta name="keywords" content="Java后端, Android开发，服务器？？？">
-<meta property="og:type" content="website">
-<meta property="og:title" content="Hetianhan的博客">
-<meta property="og:url" content="http://yoursite.com/archives/2021/02/index.html">
+  <meta name="description" content="1 虚拟机网络设置问题我用的是如下的网络设置：NAT模式。 ping命令时候遇到问题：network is unreachable。 解决方法： ​    1. 修改网络配置文件：vi /etc/sysconfig/network-scripts/ifcfg-ens33 2. 将ONBOOT=no改成ONBOOT=yes  3. 重启网络服务：`service network restart`">
+<meta name="keywords" content="-Linux">
+<meta property="og:type" content="article">
+<meta property="og:title" content="centOS虚拟机问题汇总">
+<meta property="og:url" content="http://yoursite.com/2021/02/13/Linux/2021-02-13-Linux/index.html">
 <meta property="og:site_name" content="Hetianhan的博客">
-<meta property="og:description" content="西柚在读废物研究生，野生程序员，擅长吃喝玩乐">
+<meta property="og:description" content="1 虚拟机网络设置问题我用的是如下的网络设置：NAT模式。 ping命令时候遇到问题：network is unreachable。 解决方法： ​    1. 修改网络配置文件：vi /etc/sysconfig/network-scripts/ifcfg-ens33 2. 将ONBOOT=no改成ONBOOT=yes  3. 重启网络服务：`service network restart`">
 <meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="http://yoursite.com/.com//2021-02-21-Test-md%5C1601386281283.png">
+<meta property="og:updated_time" content="2021-02-21T05:48:57.039Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Hetianhan的博客">
-<meta name="twitter:description" content="西柚在读废物研究生，野生程序员，擅长吃喝玩乐">
+<meta name="twitter:title" content="centOS虚拟机问题汇总">
+<meta name="twitter:description" content="1 虚拟机网络设置问题我用的是如下的网络设置：NAT模式。 ping命令时候遇到问题：network is unreachable。 解决方法： ​    1. 修改网络配置文件：vi /etc/sysconfig/network-scripts/ifcfg-ens33 2. 将ONBOOT=no改成ONBOOT=yes  3. 重启网络服务：`service network restart`">
+<meta name="twitter:image" content="http://yoursite.com/.com//2021-02-21-Test-md%5C1601386281283.png">
 
-<link rel="canonical" href="http://yoursite.com/archives/2021/02/">
+<link rel="canonical" href="http://yoursite.com/2021/02/13/Linux/2021-02-13-Linux/">
 
 
 <script id="page-configurations">
@@ -40,12 +43,12 @@
   CONFIG.page = {
     sidebar: "",
     isHome : false,
-    isPost : false,
+    isPost : true,
     lang   : 'zh-CN'
   };
 </script>
 
-  <title>归档 | Hetianhan的博客</title>
+  <title>centOS虚拟机问题汇总 | Hetianhan的博客</title>
   
 
 
@@ -158,111 +161,102 @@
         <div class="content-wrap">
           
 
-          <div class="content archive">
+          <div class="content post posts-expand">
             
 
+    
   
   
-  
-  <div class="post-block">
-    <div class="posts-collapse">
-      <div class="collection-title">
-        
-        <span class="collection-header">还行! 目前共计 34 篇日志。 继续努力。</span>
-      </div>
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2021/02/13/Linux/2021-02-13-Linux/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/hmbb.gif">
+      <meta itemprop="name" content="Hetianhan">
+      <meta itemprop="description" content="西柚在读废物研究生，野生程序员，擅长吃喝玩乐">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hetianhan的博客">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          centOS虚拟机问题汇总
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2021-02-13 15:10:00" itemprop="dateCreated datePublished" datetime="2021-02-13T15:10:00+08:00">2021-02-13</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2021-02-21 13:48:57" itemprop="dateModified" datetime="2021-02-21T13:48:57+08:00">2021-02-21</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Linux/" itemprop="url" rel="index"><span itemprop="name">-Linux</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
 
       
-    <div class="collection-year">
-      <span class="collection-header">2021</span>
+        <h3 id="1-虚拟机网络设置问题"><a href="#1-虚拟机网络设置问题" class="headerlink" title="1 虚拟机网络设置问题"></a>1 虚拟机网络设置问题</h3><p>我用的是如下的网络设置：NAT模式。<img src="/.com//2021-02-21-Test-md%5C1601386281283.png" alt></p>
+<p>ping命令时候遇到问题：network is unreachable。</p>
+<p>解决方法：</p>
+<p>​    1. 修改网络配置文件：<code>vi /etc/sysconfig/network-scripts/ifcfg-ens33</code></p>
+<pre><code>2. 将ONBOOT=no改成ONBOOT=yes
+ 3. 重启网络服务：`service network restart`</code></pre>
     </div>
 
-  <article itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
+    
+    
+    
 
-      <div class="post-meta">
-        <time itemprop="dateCreated"
-              datetime="2021-02-21T12:21:59+08:00"
-              content="2021-02-21">
-          02-21
-        </time>
-      </div>
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/Linux/" rel="tag"># -Linux</a>
+          </div>
 
-      <div class="post-title">
-          <a class="post-title-link" href="/2021/02/21/Test-md/" itemprop="url">
-            <span itemprop="name">Test.md</span>
-          </a>
-      </div>
-
-    </header>
-  </article>
-
-  <article itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <div class="post-meta">
-        <time itemprop="dateCreated"
-              datetime="2021-02-21T12:11:37+08:00"
-              content="2021-02-21">
-          02-21
-        </time>
-      </div>
-
-      <div class="post-title">
-          <a class="post-title-link" href="/2021/02/21/xianc/" itemprop="url">
-            <span itemprop="name">xianc</span>
-          </a>
-      </div>
-
-    </header>
-  </article>
-
-  <article itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <div class="post-meta">
-        <time itemprop="dateCreated"
-              datetime="2021-02-13T15:10:00+08:00"
-              content="2021-02-13">
-          02-13
-        </time>
-      </div>
-
-      <div class="post-title">
-          <a class="post-title-link" href="/2021/02/13/Linux/2021-02-13-Linux/" itemprop="url">
-            <span itemprop="name">centOS虚拟机问题汇总</span>
-          </a>
-      </div>
-
-    </header>
-  </article>
-
-  <article itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <div class="post-meta">
-        <time itemprop="dateCreated"
-              datetime="2021-02-08T21:48:01+08:00"
-              content="2021-02-08">
-          02-08
-        </time>
-      </div>
-
-      <div class="post-title">
-          <a class="post-title-link" href="/2021/02/08/多线程/" itemprop="url">
-            <span itemprop="name">多线程</span>
-          </a>
-      </div>
-
-    </header>
-  </article>
+        
 
 
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2021/02/08/多线程/" rel="prev" title="多线程">
+      <i class="fa fa-chevron-left"></i> 多线程
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2021/02/21/xianc/" rel="next" title="xianc">
+      xianc <i class="fa fa-chevron-right"></i>
+    </a></div>
     </div>
-  </div>
+      </footer>
+    
+  </article>
   
   
-  
-
   
 
 
@@ -315,6 +309,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-虚拟机网络设置问题"><span class="nav-number">1.</span> <span class="nav-text">1 虚拟机网络设置问题</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 
