@@ -1,0 +1,506 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 3.9.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/ufo.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/ufo16.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/ufo16.png">
+  <link rel="mask-icon" href="/images/ufo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"huahuahuahe.github.io","root":"/","scheme":"Pisces","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta name="description" content="本文都是在项目部署都是基于windos 1 Seata1.1 Seata 模式简介​            AT模式  ​            如果不熟悉（就是我）分布式相关解决模式的相关知识，可以看一个b站的视频，从76P开始讲Seata的，有助于更加了解Seata的机制。">
+<meta name="keywords" content="-Java">
+<meta property="og:type" content="article">
+<meta property="og:title" content="seata接入SpringBoot项目流程汇总+问题总结">
+<meta property="og:url" content="https://huahuahuahe.github.io/2020/05/23/seata接入SpringBoot项目流程汇总-问题总结/index.html">
+<meta property="og:site_name" content="Hetianhan的博客">
+<meta property="og:description" content="本文都是在项目部署都是基于windos 1 Seata1.1 Seata 模式简介​            AT模式  ​            如果不熟悉（就是我）分布式相关解决模式的相关知识，可以看一个b站的视频，从76P开始讲Seata的，有助于更加了解Seata的机制。">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="https://huahuahuahe.github.io/2020/05/23/seata接入SpringBoot项目流程汇总-问题总结/F:%5Cblog%5Csource%5Cimages%5Cblog_images%5Cnacos1.png">
+<meta property="og:updated_time" content="2021-01-23T18:47:55.553Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="seata接入SpringBoot项目流程汇总+问题总结">
+<meta name="twitter:description" content="本文都是在项目部署都是基于windos 1 Seata1.1 Seata 模式简介​            AT模式  ​            如果不熟悉（就是我）分布式相关解决模式的相关知识，可以看一个b站的视频，从76P开始讲Seata的，有助于更加了解Seata的机制。">
+<meta name="twitter:image" content="https://huahuahuahe.github.io/2020/05/23/seata接入SpringBoot项目流程汇总-问题总结/F:%5Cblog%5Csource%5Cimages%5Cblog_images%5Cnacos1.png">
+
+<link rel="canonical" href="https://huahuahuahe.github.io/2020/05/23/seata接入SpringBoot项目流程汇总-问题总结/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>seata接入SpringBoot项目流程汇总+问题总结 | Hetianhan的博客</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">Hetianhan的博客</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="user fa-fw"></i>关于我</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="tags fa-fw"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="th fa-fw"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="archive fa-fw"></i>归档</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://huahuahuahe.github.io/2020/05/23/seata接入SpringBoot项目流程汇总-问题总结/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/hmbb.gif">
+      <meta itemprop="name" content="Hetianhan">
+      <meta itemprop="description" content="西柚在读废物研究生，野生程序员，擅长吃喝玩乐">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hetianhan的博客">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          seata接入SpringBoot项目流程汇总+问题总结
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2020-05-23 00:00:00" itemprop="dateCreated datePublished" datetime="2020-05-23T00:00:00+08:00">2020-05-23</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2021-01-24 02:47:55" itemprop="dateModified" datetime="2021-01-24T02:47:55+08:00">2021-01-24</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Java/" itemprop="url" rel="index"><span itemprop="name">-Java</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <p>本文都是在项目部署都是基于windos</p>
+<h3 id="1-Seata"><a href="#1-Seata" class="headerlink" title="1 Seata"></a>1 Seata</h3><h4 id="1-1-Seata-模式简介"><a href="#1-1-Seata-模式简介" class="headerlink" title="1.1 Seata 模式简介"></a>1.1 Seata 模式简介</h4><p>​            <a href="https://seata.io/zh-cn/docs/dev/mode/at-mode.html" target="_blank" rel="noopener">AT模式</a> </p>
+<p>​            如果不熟悉（就是我）分布式相关解决模式的相关知识，可以看一个<a href="https://www.bilibili.com/video/BV1R7411774f/?p=76" target="_blank" rel="noopener">b站的视频</a>，从76P开始讲Seata的，有助于更加了解Seata的机制。</p>
+<a id="more"></a>
+
+<h4 id="1-2-Seata配置"><a href="#1-2-Seata配置" class="headerlink" title="1.2 Seata配置"></a>1.2 Seata配置</h4><p>​        ①<a href="http://seata.io/zh-cn/blog/download.html" target="_blank" rel="noopener">下载</a> + 解压(推荐一直都在用的<a href="https://www.bandisoft.com/" target="_blank" rel="noopener">BandZip</a>)</p>
+<p>​        ②初始化数据库（创建名为seata的数据库并运行下面的sql文件，创建seata运行所需要的三张表）</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br></pre></td><td class="code"><pre><span class="line">-- -------------------------------- The script used when storeMode is &apos;db&apos; --------------------------------</span><br><span class="line">-- the table to store GlobalSession data</span><br><span class="line">CREATE TABLE IF NOT EXISTS `global_table`</span><br><span class="line">(</span><br><span class="line">    `xid`                       VARCHAR(128) NOT NULL,</span><br><span class="line">    `transaction_id`            BIGINT,</span><br><span class="line">    `status`                    TINYINT      NOT NULL,</span><br><span class="line">    `application_id`            VARCHAR(32),</span><br><span class="line">    `transaction_service_group` VARCHAR(32),</span><br><span class="line">    `transaction_name`          VARCHAR(128),</span><br><span class="line">    `timeout`                   INT,</span><br><span class="line">    `begin_time`                BIGINT,</span><br><span class="line">    `application_data`          VARCHAR(2000),</span><br><span class="line">    `gmt_create`                DATETIME,</span><br><span class="line">    `gmt_modified`              DATETIME,</span><br><span class="line">    PRIMARY KEY (`xid`),</span><br><span class="line">    KEY `idx_gmt_modified_status` (`gmt_modified`, `status`),</span><br><span class="line">    KEY `idx_transaction_id` (`transaction_id`)</span><br><span class="line">) ENGINE = InnoDB</span><br><span class="line">  DEFAULT CHARSET = utf8;</span><br><span class="line"></span><br><span class="line">-- the table to store BranchSession data</span><br><span class="line">CREATE TABLE IF NOT EXISTS `branch_table`</span><br><span class="line">(</span><br><span class="line">    `branch_id`         BIGINT       NOT NULL,</span><br><span class="line">    `xid`               VARCHAR(128) NOT NULL,</span><br><span class="line">    `transaction_id`    BIGINT,</span><br><span class="line">    `resource_group_id` VARCHAR(32),</span><br><span class="line">    `resource_id`       VARCHAR(256),</span><br><span class="line">    `branch_type`       VARCHAR(8),</span><br><span class="line">    `status`            TINYINT,</span><br><span class="line">    `client_id`         VARCHAR(64),</span><br><span class="line">    `application_data`  VARCHAR(2000),</span><br><span class="line">    `gmt_create`        DATETIME(6),</span><br><span class="line">    `gmt_modified`      DATETIME(6),</span><br><span class="line">    PRIMARY KEY (`branch_id`),</span><br><span class="line">    KEY `idx_xid` (`xid`)</span><br><span class="line">) ENGINE = InnoDB</span><br><span class="line">  DEFAULT CHARSET = utf8;</span><br><span class="line"></span><br><span class="line">-- the table to store lock data</span><br><span class="line">CREATE TABLE IF NOT EXISTS `lock_table`</span><br><span class="line">(</span><br><span class="line">    `row_key`        VARCHAR(128) NOT NULL,</span><br><span class="line">    `xid`            VARCHAR(96),</span><br><span class="line">    `transaction_id` BIGINT,</span><br><span class="line">    `branch_id`      BIGINT       NOT NULL,</span><br><span class="line">    `resource_id`    VARCHAR(256),</span><br><span class="line">    `table_name`     VARCHAR(32),</span><br><span class="line">    `pk`             VARCHAR(36),</span><br><span class="line">    `gmt_create`     DATETIME,</span><br><span class="line">    `gmt_modified`   DATETIME,</span><br><span class="line">    PRIMARY KEY (`row_key`),</span><br><span class="line">    KEY `idx_branch_id` (`branch_id`)</span><br><span class="line">) ENGINE = InnoDB</span><br><span class="line">  DEFAULT CHARSET = utf8;</span><br></pre></td></tr></table></figure>
+
+<p>​        ②修改配置文件</p>
+<p>​            进入<code>seata\config</code>目录，如果要使用集群模式，需要修改：<code>file.config</code>。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">store &#123;</span><br><span class="line">  ## 修改模式，改为db</span><br><span class="line">  mode = &quot;db&quot;   </span><br><span class="line"></span><br><span class="line">  file &#123;</span><br><span class="line">    dir = &quot;sessionStore&quot;</span><br><span class="line">    maxBranchSessionSize = 16384</span><br><span class="line">    maxGlobalSessionSize = 512</span><br><span class="line">    fileWriteBufferCacheSize = 16384</span><br><span class="line">    sessionReloadReadSize = 100</span><br><span class="line">    flushDiskMode = async</span><br><span class="line">  &#125;</span><br><span class="line">  db &#123;</span><br><span class="line">    datasource = &quot;druid&quot;</span><br><span class="line">    dbType = &quot;mysql&quot;</span><br><span class="line">    driverClassName = &quot;com.mysql.jdbc.Driver&quot;</span><br><span class="line">    ## 修改数据库连接（连接到第一部配置的seata数据库）的配置，url、user、password</span><br><span class="line">    url = &quot;jdbc:mysql://127.0.0.1:3306/seata?useUnicode=true&quot;</span><br><span class="line">    user = &quot;root&quot;</span><br><span class="line">    password = &quot;Qwer;t592665&quot;</span><br><span class="line">    minConn = 5</span><br><span class="line">    maxConn = 30</span><br><span class="line">    globalTable = &quot;global_table&quot;</span><br><span class="line">    branchTable = &quot;branch_table&quot;</span><br><span class="line">    lockTable = &quot;lock_table&quot;</span><br><span class="line">    queryLimit = 100</span><br><span class="line">    maxWait = 5000</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>​        ③设置nacos为注册中心</p>
+<p>​            进入<code>seata\config</code>目录，修改：<code>registry.config</code>。        </p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line">registry &#123;</span><br><span class="line">  #注册为nacos</span><br><span class="line">  type = &quot;nacos&quot;</span><br><span class="line"></span><br><span class="line">  nacos &#123;</span><br><span class="line">    application = &quot;seata-server&quot;</span><br><span class="line">    serverAddr = &quot;localhost:8848&quot;</span><br><span class="line">    namespace = &quot;public&quot;</span><br><span class="line">    cluster = &quot;default&quot;</span><br><span class="line">    username = &quot;&quot;</span><br><span class="line">    password = &quot;&quot;</span><br><span class="line">  &#125;</span><br><span class="line">  file &#123;</span><br><span class="line">    name = &quot;file.conf&quot;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">config &#123;</span><br><span class="line">  ##修改为nacos配置</span><br><span class="line">  type = &quot;nacos&quot;</span><br><span class="line"></span><br><span class="line">  nacos &#123;</span><br><span class="line">    serverAddr = &quot;localhost&quot;</span><br><span class="line">    namespace = &quot;public&quot;</span><br><span class="line">    group = &quot;SEATA_GROUP&quot;</span><br><span class="line">    username = &quot;&quot;</span><br><span class="line">    password = &quot;&quot;</span><br><span class="line">  &#125;</span><br><span class="line">  file &#123;</span><br><span class="line">    name = &quot;file.conf&quot;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>​        ④启动Seata        </p>
+<p>​            1.在<a href="https://github.com/seata/seata/releases" target="_blank" rel="noopener">RELEASE</a>页面下载相应版本并解压</p>
+<p>​            2.直接启动</p>
+<p>​                在 Linux/Mac 下</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ sh ./bin/seata-server.sh</span><br></pre></td></tr></table></figure>
+
+<p>​                在 Windows 下</p>
+<figure class="highlight cmd"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">.\seata-server.bat</span><br></pre></td></tr></table></figure>
+
+<p><strong>接下来我们部署Nacos作为Seata的配置中心</strong></p>
+<h3 id="2-Nacos"><a href="#2-Nacos" class="headerlink" title="2 Nacos"></a>2 Nacos</h3><h4 id="2-1Nacos部署"><a href="#2-1Nacos部署" class="headerlink" title="2.1Nacos部署"></a>2.1Nacos部署</h4><p>​    ①在<a href="https://github.com/alibaba/nacos/releases>" target="_blank" rel="noopener">nacos下载页面</a>中下载，我下载时最新版本为1.3.0</p>
+<p>​    ②创建数据库nacos以及相应的表（在<code>conf</code>目录下有sql文件）</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">CREATE TABLE seata_order.undo_log</span><br><span class="line">(</span><br><span class="line">    id            BIGINT(20)   NOT NULL AUTO_INCREMENT,</span><br><span class="line">    branch_id     BIGINT(20)   NOT NULL,</span><br><span class="line">    xid           VARCHAR(100) NOT NULL, </span><br><span class="line">    context       VARCHAR(128) NOT NULL,</span><br><span class="line">    rollback_info LONGBLOB     NOT NULL,</span><br><span class="line">    log_status    INT(11)      NOT NULL,</span><br><span class="line">    log_created   DATETIME     NOT NULL,</span><br><span class="line">    log_modified  DATETIME     NOT NULL,</span><br><span class="line">    PRIMARY KEY (id),</span><br><span class="line">    UNIQUE KEY ux_undo_log (xid, branch_id)</span><br><span class="line">) ENGINE = InnoDB AUTO_INCREMENT = 1 DEFAULT CHARSET = utf8;</span><br></pre></td></tr></table></figure>
+
+<p>​    ③配置数据库连接信息</p>
+<p>​        在nacos\conf目录下找到<code>application.properties</code>    配置文件，增加MySQL配置：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">#*************** Config Module Related Configurations ***************#</span><br><span class="line">### If user MySQL as datasource:</span><br><span class="line">spring.datasource.platform=mysql</span><br><span class="line"></span><br><span class="line">### Count of DB:</span><br><span class="line">db.num=1</span><br><span class="line"></span><br><span class="line">### Connect URL of DB:</span><br><span class="line">db.url.0=jdbc:mysql://127.0.0.1:3306/nacos?characterEncoding=utf8&amp;connectTimeout=1000&amp;socketTimeout=3000&amp;autoReconnect=true&amp;useUnicode=true&amp;useSSL=false&amp;serverTimezone=UTC</span><br><span class="line">db.user=root</span><br><span class="line">db.password=******</span><br></pre></td></tr></table></figure>
+
+<p>​    ③启动Nacos服务</p>
+<p>​        windows就是startup.cmd（linux就是startup.sh）。</p>
+<p>​    ④打开 <a href="http://127.0.0.1:8848/nacos" target="_blank" rel="noopener">http://127.0.0.1:8848/nacos</a> 地址，使用默认的用户「nacos/nacos」进行登陆。</p>
+<p><img src="//huahuahuahe.github.io/2020/05/23/seata接入SpringBoot项目流程汇总-问题总结/F:%5Cblog%5Csource%5Cimages%5Cblog_images%5Cnacos1.png" alt></p>
+<p>​        这样我们就算部署成功了。</p>
+<h3 id="3-SpringBoot相关配置"><a href="#3-SpringBoot相关配置" class="headerlink" title="3 SpringBoot相关配置"></a>3 SpringBoot相关配置</h3><p>​    可以参照<a href="http://www.iocoder.cn/Spring-Boot/Seata/?self" target="_blank" rel="noopener">芋道</a>的内容。</p>
+<p>​    ①设置分支事务回滚表<code>undo_log</code>。</p>
+<p>​        项目中每个数据库都要设置相应的<code>undo_log</code>表用于分支事务的回滚。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">CREATE TABLE seata_order.undo_log</span><br><span class="line">(</span><br><span class="line">    id            BIGINT(20)   NOT NULL AUTO_INCREMENT,</span><br><span class="line">    branch_id     BIGINT(20)   NOT NULL,</span><br><span class="line">    xid           VARCHAR(100) NOT NULL, </span><br><span class="line">    context       VARCHAR(128) NOT NULL,</span><br><span class="line">    rollback_info LONGBLOB     NOT NULL,</span><br><span class="line">    log_status    INT(11)      NOT NULL,</span><br><span class="line">    log_created   DATETIME     NOT NULL,</span><br><span class="line">    log_modified  DATETIME     NOT NULL,</span><br><span class="line">    PRIMARY KEY (id),</span><br><span class="line">    UNIQUE KEY ux_undo_log (xid, branch_id)</span><br><span class="line">) ENGINE = InnoDB AUTO_INCREMENT = 1 DEFAULT CHARSET = utf8;</span><br></pre></td></tr></table></figure>
+
+<p>​        ②引入依赖</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">&lt;!-- 实现对 Seata 的自动化配置 --&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">          <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>io.seata<span class="tag">&lt;/<span class="name">group</span>	<span class="attr">Id</span>&gt;</span></span><br><span class="line">          <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>seata-spring-boot-starter<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">          <span class="tag">&lt;<span class="name">version</span>&gt;</span>1.2.0<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line"></span><br><span class="line">      <span class="comment">&lt;!-- 实现 Nacos 作为配置中心的自动化配置 --&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">          <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>com.alibaba.boot<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">          <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>nacos-config-spring-boot-starter<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">          <span class="tag">&lt;<span class="name">version</span>&gt;</span>0.2.4<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="comment">&lt;!-- 实现对 dynamic-datasource 的自动化配置 --&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">          <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>com.baomidou<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">          <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>dynamic-datasource-spring-boot-starter<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">          <span class="tag">&lt;<span class="name">version</span>&gt;</span>3.0.0<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>​        ③配置文件</p>
+<p>​            修改<code>application.yaml</code>，没有就创建</p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">server:</span></span><br><span class="line"><span class="attr">  port:</span> <span class="number">8081</span> <span class="comment"># 端口</span></span><br><span class="line"><span class="attr">  servlet:</span></span><br><span class="line"><span class="attr">    context-path:</span> <span class="string">/parking</span></span><br><span class="line"></span><br><span class="line"><span class="attr">spring:</span></span><br><span class="line"><span class="attr">  application:</span></span><br><span class="line"><span class="attr">    name:</span> <span class="string">parking</span>  <span class="comment"># 应用名</span></span><br><span class="line"></span><br><span class="line"><span class="attr">  datasource:</span></span><br><span class="line">    <span class="comment"># dynamic-datasource-spring-boot-starter 动态数据源的配配项，对应 DynamicDataSourceProperties 类</span></span><br><span class="line"><span class="attr">    dynamic:</span></span><br><span class="line"><span class="attr">      primary:</span> <span class="string">all-ds</span> <span class="comment"># 设置默认的数据源或者数据源组，默认值即为 master</span></span><br><span class="line"><span class="attr">      datasource:</span></span><br><span class="line">        <span class="comment"># 系统总数据源配置</span></span><br><span class="line"><span class="attr">        all-ds:</span></span><br><span class="line"><span class="attr">          url:</span> <span class="attr">jdbc:mysql://127.0.0.1:3306/parking_lot?useSSL=false&amp;useUnicode=true&amp;characterEncoding=UTF-8</span></span><br><span class="line"><span class="attr">          driver-class-name:</span> <span class="string">com.mysql.jdbc.Driver</span></span><br><span class="line"><span class="attr">          username:</span> <span class="string">root</span></span><br><span class="line"><span class="attr">          password:</span> <span class="string">Qwer;t592665</span></span><br><span class="line">        <span class="comment"># 系统支数据源 swpu配置</span></span><br><span class="line"><span class="attr">        swpu-ds:</span></span><br><span class="line"><span class="attr">          url:</span> <span class="attr">jdbc:mysql://127.0.0.1:3306/parking_lot_swpu?useSSL=false&amp;useUnicode=true&amp;characterEncoding=UTF-8</span></span><br><span class="line"><span class="attr">          driver-class-name:</span> <span class="string">com.mysql.jdbc.Driver</span></span><br><span class="line"><span class="attr">          username:</span> <span class="string">root</span></span><br><span class="line"><span class="attr">          password:</span> <span class="string">Qwer;t592665</span></span><br><span class="line"><span class="attr">      seata:</span> <span class="literal">true</span> <span class="comment"># 是否启动对 Seata的集成</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># Seata 配置项，对应 SeataProperties类</span></span><br><span class="line"><span class="attr">seata:</span></span><br><span class="line"><span class="attr">  application-id:</span> <span class="string">$&#123;spring.application.name&#125;</span> <span class="comment"># Seata 应用编号，默认为 $&#123;spring.application.name&#125;</span></span><br><span class="line"><span class="attr">  tx-service-group:</span> <span class="string">$&#123;spring.application.name&#125;-group</span> <span class="comment"># Seata 事务组编号，用于 TC 集群名</span></span><br><span class="line">  <span class="comment"># 服务配置项，对应 ServiceProperties 类</span></span><br><span class="line"><span class="attr">  service:</span></span><br><span class="line">    <span class="comment"># 虚拟组和分组的映射</span></span><br><span class="line"><span class="attr">    vgroup-mapping:</span></span><br><span class="line"><span class="attr">      parking-group:</span> <span class="string">default</span>     <span class="comment">##⭐⭐注意这里的parking-group要和上面的应用名称的一致，不然会报错：no available service 'null' found, please make sure registry config correct</span></span><br><span class="line">    <span class="comment"># 分组和 Seata 服务的映射</span></span><br><span class="line"><span class="attr">    grouplist:</span></span><br><span class="line"><span class="attr">      default:</span> <span class="number">127.0</span><span class="number">.0</span><span class="number">.1</span><span class="string">:8091</span></span><br></pre></td></tr></table></figure>
+
+<p>​        ④项目实例可以参考<a href="http://www.iocoder.cn/Spring-Boot/Seata/?self" target="_blank" rel="noopener">芋道</a>的文章。</p>
+<p>​        ⑤总结一下我遇到的问题：</p>
+<p><strong>1：no available service ‘null’ found, please make sure registry config correct</strong></p>
+<p>​        因为我开始参考的是别人的项目，有些细节没弄清楚，看了一下<a href="https://github.com/seata/seata/issues/2521" target="_blank" rel="noopener">github</a>大家的issue，突然想到seata的事务组名称（也就是vgroup mapping下面第一个配置项目的key）这里必须设置为：<code>你的项目名称</code>+<code>-group</code>，我这里就是parking-group。</p>
+<p><strong>2：RM register failed</strong></p>
+<p>​    主要原因是我的GlobalTransaction没有管理到 到Transactional，导致这事务之间没有联系一起</p>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/Java/" rel="tag"># -Java</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2020/05/21/hexo踩坑总结/" rel="prev" title="Hexo+yilia 踩坑总结">
+      <i class="fa fa-chevron-left"></i> Hexo+yilia 踩坑总结
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2020/05/28/HashMap实现原理-JDK8/" rel="next" title="HashMap实现原理——JDK8">
+      HashMap实现原理——JDK8 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-Seata"><span class="nav-number">1.</span> <span class="nav-text">1 Seata</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-1-Seata-模式简介"><span class="nav-number">1.1.</span> <span class="nav-text">1.1 Seata 模式简介</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#1-2-Seata配置"><span class="nav-number">1.2.</span> <span class="nav-text">1.2 Seata配置</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-Nacos"><span class="nav-number">2.</span> <span class="nav-text">2 Nacos</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#2-1Nacos部署"><span class="nav-number">2.1.</span> <span class="nav-text">2.1Nacos部署</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-SpringBoot相关配置"><span class="nav-number">3.</span> <span class="nav-text">3 SpringBoot相关配置</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Hetianhan"
+      src="/images/hmbb.gif">
+  <p class="site-author-name" itemprop="name">Hetianhan</p>
+  <div class="site-description" itemprop="description">西柚在读废物研究生，野生程序员，擅长吃喝玩乐</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">40</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">9</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">9</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/HuaHuaHuaHe" title="GitHub → https://github.com/HuaHuaHuaHe" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:tianhan.he@foxmail.com" title="E-Mail → mailto:tianhan.he@foxmail.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://weibo.com/yourname" title="Weibo → https://weibo.com/yourname" rel="noopener" target="_blank"><i class="fab fa-weibo fa-fw"></i>Weibo</a>
+      </span>
+  </div>
+
+
+  <div class="links-of-blogroll motion-element">
+    <div class="links-of-blogroll-title"><i class="fa fa-link fa-fw"></i>
+      友链
+    </div>
+    <ul class="links-of-blogroll-list">
+        <li class="links-of-blogroll-item">
+          <a href="https://chenyifaer.com/tags/" title="https://chenyifaer.com/tags/" rel="noopener" target="_blank">陈一发儿</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="https://repo.huaweicloud.com/java/jdk/" title="https://repo.huaweicloud.com/java/jdk/" rel="noopener" target="_blank">华为镜像</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="http://www.yinfans.me/" title="http://www.yinfans.me/" rel="noopener" target="_blank">yfs(电影资源)</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="http://lightzhan.xyz/" title="http://lightzhan.xyz/" rel="noopener" target="_blank">light教程</a>
+        </li>
+    </ul>
+  </div>
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2023</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Hetianhan</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://pisces.theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a> 强力驱动
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  
+  <script color='0,0,255' opacity='0.5' zIndex='-1' count='99' src="/lib/canvas-nest/canvas-nest.min.js"></script>
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+<script src="/js/utils.js"></script><script src="/js/motion.js"></script>
+<script src="/js/schemes/pisces.js"></script>
+<script src="/js/next-boot.js"></script>
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>

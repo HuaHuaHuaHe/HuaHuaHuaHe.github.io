@@ -1,0 +1,580 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 3.9.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/ufo.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/ufo16.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/ufo16.png">
+  <link rel="mask-icon" href="/images/ufo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"huahuahuahe.github.io","root":"/","scheme":"Pisces","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta name="description" content="MySQL学习查询端口号：1show global variables like &amp;apos;port&amp;apos;  1、查询数据1select * from 表名；  2、查询指定数据1select 指定字段 from 表名；">
+<meta name="keywords" content="-Sql">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Mysql">
+<meta property="og:url" content="https://huahuahuahe.github.io/2019/05/23/MySQL学习/index.html">
+<meta property="og:site_name" content="Hetianhan的博客">
+<meta property="og:description" content="MySQL学习查询端口号：1show global variables like &amp;apos;port&amp;apos;  1、查询数据1select * from 表名；  2、查询指定数据1select 指定字段 from 表名；">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="https://huahuahuahe.github.io/2019/05/23/MySQL学习/F:%5Cblog%5Csource_posts%5Cimages%5C1601386281283.png">
+<meta property="og:image" content="https://huahuahuahe.github.io/2019/05/23/MySQL学习/F:%5Cblog%5Csource_posts%5Cimages%5Cunique_key.png">
+<meta property="og:updated_time" content="2021-04-10T06:05:54.703Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Mysql">
+<meta name="twitter:description" content="MySQL学习查询端口号：1show global variables like &amp;apos;port&amp;apos;  1、查询数据1select * from 表名；  2、查询指定数据1select 指定字段 from 表名；">
+<meta name="twitter:image" content="https://huahuahuahe.github.io/2019/05/23/MySQL学习/F:%5Cblog%5Csource_posts%5Cimages%5C1601386281283.png">
+
+<link rel="canonical" href="https://huahuahuahe.github.io/2019/05/23/MySQL学习/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>Mysql | Hetianhan的博客</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">Hetianhan的博客</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="user fa-fw"></i>关于我</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="tags fa-fw"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="th fa-fw"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="archive fa-fw"></i>归档</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://huahuahuahe.github.io/2019/05/23/MySQL学习/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/hmbb.gif">
+      <meta itemprop="name" content="Hetianhan">
+      <meta itemprop="description" content="西柚在读废物研究生，野生程序员，擅长吃喝玩乐">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hetianhan的博客">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Mysql
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2019-05-23 00:00:00" itemprop="dateCreated datePublished" datetime="2019-05-23T00:00:00+08:00">2019-05-23</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2021-04-10 14:05:54" itemprop="dateModified" datetime="2021-04-10T14:05:54+08:00">2021-04-10</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Sql/" itemprop="url" rel="index"><span itemprop="name">-Sql</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h4 id="MySQL学习"><a href="#MySQL学习" class="headerlink" title="MySQL学习"></a>MySQL学习</h4><h5 id="查询端口号："><a href="#查询端口号：" class="headerlink" title="查询端口号："></a>查询端口号：</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">show global variables like &apos;port&apos;</span><br></pre></td></tr></table></figure>
+
+<h5 id="1、查询数据"><a href="#1、查询数据" class="headerlink" title="1、查询数据"></a>1、查询数据</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">select * from 表名；</span><br></pre></td></tr></table></figure>
+
+<h5 id="2、查询指定数据"><a href="#2、查询指定数据" class="headerlink" title="2、查询指定数据"></a>2、查询指定数据</h5><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span> 指定字段 <span class="keyword">from</span> 表名；</span><br></pre></td></tr></table></figure>
+
+<a id="more"></a>
+
+<h5 id="3、条件查询"><a href="#3、条件查询" class="headerlink" title="3、条件查询"></a>3、条件查询</h5><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">查询年龄15-17</span><br><span class="line"> <span class="keyword">select</span> * <span class="keyword">from</span> 表名 <span class="keyword">where</span> age&lt;=<span class="number">17</span>；      selete * <span class="keyword">from</span> 表名 <span class="keyword">where</span> age <span class="keyword">between</span> <span class="number">15</span> <span class="keyword">and</span> <span class="number">17</span>；</span><br><span class="line">查询年龄<span class="number">15</span>和<span class="number">17</span>的</span><br><span class="line"> <span class="keyword">select</span> * <span class="keyword">from</span> 表名 <span class="keyword">where</span> age=<span class="number">15</span> <span class="keyword">and</span> age=<span class="number">17</span>；</span><br><span class="line"> </span><br><span class="line"> <span class="keyword">select</span> <span class="keyword">name</span> <span class="keyword">from</span> 表名 <span class="keyword">where</span>(age=<span class="number">15</span> <span class="keyword">or</span> age =<span class="number">17</span>) <span class="keyword">and</span> sex=man;</span><br><span class="line"> <span class="comment">/*这条 SELECT 语句与前一条的唯一差别是，这条语句中，前两个条件用圆括号括了起来。因为圆括号具有较 AND 或 OR 操作符高的计算次序，DBMS首先过滤圆括号内的 OR 条件*/</span></span><br></pre></td></tr></table></figure>
+
+<h5 id="4、IN操作符"><a href="#4、IN操作符" class="headerlink" title="4、IN操作符"></a>4、IN操作符</h5><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/*IN操作符用来指定条件范围，范围中的每个条件都可以进行匹配*/</span></span><br><span class="line">查询年龄15和17的</span><br><span class="line">  <span class="keyword">select</span> * <span class="keyword">from</span> 表名 <span class="keyword">where</span> age <span class="keyword">IN</span>(<span class="number">15</span>,<span class="number">17</span>) <span class="keyword">ORDER</span> <span class="keyword">BY</span> username;</span><br></pre></td></tr></table></figure>
+
+<h5 id="5、NOT操作符"><a href="#5、NOT操作符" class="headerlink" title="5、NOT操作符"></a>5、NOT操作符</h5><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/*NOT操作符用来否定后面跟条件的关键字*/</span></span><br><span class="line">查询除了15和17的人</span><br><span class="line"><span class="keyword">select</span> *<span class="keyword">from</span> 表名 wher age <span class="keyword">NOT</span> <span class="keyword">IN</span>(<span class="number">15</span>,<span class="number">17</span>) <span class="keyword">ORDER</span> <span class="keyword">BY</span> username;</span><br></pre></td></tr></table></figure>
+
+<h5 id="6、LIKE操作符"><a href="#6、LIKE操作符" class="headerlink" title="6、LIKE操作符"></a>6、LIKE操作符</h5><h6 id="6-1-百分号（-）通配符"><a href="#6-1-百分号（-）通配符" class="headerlink" title="6.1  百分号（%）通配符"></a>6.1  百分号（%）通配符</h6><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/*%通配符表示任何字符出现任意次数*/</span></span><br><span class="line"><span class="keyword">select</span> <span class="keyword">id</span>,prod_name <span class="keyword">from</span> products <span class="keyword">where</span> prod_name <span class="keyword">LIKE</span><span class="string">'jet%'</span>;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/*根据MySQL的配置方式，搜索可以是区分大小写的。如果区分大小写， 'jet%' 与 JetPack 1000 将不匹配。</span></span><br><span class="line"><span class="comment"></span></span><br><span class="line"><span class="comment">  通配符可以在搜索模式中任意位置使用，并且可以使用多个通配符。*/</span></span><br><span class="line"> <span class="keyword">select</span> <span class="keyword">id</span>,prod_name <span class="keyword">from</span> products <span class="keyword">where</span> prod_name <span class="keyword">LIKE</span><span class="string">'%jet%'</span>;</span><br><span class="line"> </span><br><span class="line"> <span class="comment">/*尾空格可能会干扰通配符匹配。例如，在保存词anvil 时，如果它 后面有一个或多个空格，则子句 WHERE</span></span><br><span class="line"><span class="comment">prod_name LIKE '%anvil' 将不会匹配它们，因为在最后的 l 后有多余的字符。解决这个问题的一个简单的办法是在搜索模式最后附加一个 % 。一个更好的办法是使用函数（第11章将会介绍）去掉首尾空格*/</span></span><br><span class="line"></span><br><span class="line"><span class="comment">/*虽然似乎 % 通配符可以匹配任何东西，但有一个例外，即 NULL 。即使是 WHERE prod_name LIKE '%' 也不能匹配用值 NULL 作为产品名的行。*/</span></span><br></pre></td></tr></table></figure>
+
+<h6 id="6-2-下划线（-）通配符"><a href="#6-2-下划线（-）通配符" class="headerlink" title="6.2  下划线（ _ ）通配符"></a>6.2  下划线（ _ ）通配符</h6><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/*下划线(_)通配符只能匹配单个字符*/</span></span><br><span class="line"><span class="comment">/*_总是匹配一个字符，不能多也不能少*/</span></span><br><span class="line"><span class="keyword">SELECT</span> *<span class="keyword">FROM</span> products <span class="keyword">WHERE</span> prod_name <span class="keyword">LIKE</span> <span class="string">'jes_s_sdw_'</span>;</span><br></pre></td></tr></table></figure>
+
+<h4 id="7、正则表达式"><a href="#7、正则表达式" class="headerlink" title="7、正则表达式"></a>7、正则表达式</h4><p><strong>正则表达式是用来匹配文本的特殊的字符串</strong>。如果你想从一个文本文件中提取电话号码，可以使用正则表达式。如果你需要查找名字中间有数字的所有文件，可以使用一个正则表达式。如果你想在一个文本块中找到所有重复的单词，可以使用一个正则表达式。如果你想替换一个页面中的所有URL为这些URL的实际HTML链接，也可以使用一个正则表达式（对于最后这个例子，或者是两个正则表达式）。regexp : 正则表达式</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/*没有返回值*/</span></span><br><span class="line"><span class="keyword">select</span> * <span class="keyword">from</span> <span class="keyword">user</span> <span class="keyword">where</span> username <span class="keyword">LIKE</span> <span class="string">'huahu'</span>;</span><br><span class="line">Empty <span class="keyword">set</span> (<span class="number">0.00</span> sec)  </span><br><span class="line"></span><br><span class="line"><span class="comment">/*REGEXP有返回值*/</span></span><br><span class="line"><span class="keyword">select</span> * <span class="keyword">from</span> <span class="keyword">user</span> <span class="keyword">where</span> username REGEXP <span class="string">'huahu'</span>;</span><br><span class="line">+<span class="comment">-------------+----------+----------+------+-------------+-----------+---------+</span></span><br><span class="line">| username    | pwd      | license  | sex  | tel         | drive_age | cartype |</span><br><span class="line">+<span class="comment">-------------+----------+----------+------+-------------+-----------+---------+</span></span><br><span class="line">| huahua      | fggg6rge | CAOG8T6  | man  | 15388342650 |         1 |       1 |</span><br><span class="line">| huahuahu    | dab5htd  | CAOG8T6  | man  | 15388342650 |         3 |       2 |</span><br><span class="line">| huahuahua   | ses23df  | 川ANB211 | man  | 15388342650 |         7 |       0 |</span><br><span class="line">| huahuahuahe | sdwadsd  | 川UCZ002 | man  | 15388342650 |         6 |       2 |</span><br><span class="line">+<span class="comment">-------------+----------+----------+------+-------------+-----------+---------+</span></span><br><span class="line">4 rows in <span class="keyword">set</span> (<span class="number">0.37</span> sec)</span><br></pre></td></tr></table></figure>
+
+<h6 id="7-1-BINARY关键字"><a href="#7-1-BINARY关键字" class="headerlink" title="7.1 BINARY关键字"></a>7.1 BINARY关键字</h6><p>Mysql的正则表达式匹配不区分大小。为区分大小，可使用BINARY关键字。</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">mysql&gt;  select * from user where username REGEXP 'HUAHUA';</span><br><span class="line">+<span class="comment">-------------+----------+----------+------+-------------+-----------+---------+</span></span><br><span class="line">| username    | pwd      | license  | sex  | tel         | drive_age | cartype |</span><br><span class="line">+<span class="comment">-------------+----------+----------+------+-------------+-----------+---------+</span></span><br><span class="line">| huahua      | fggg6rge | CAOG8T6  | man  | 15388342650 |         1 |       1 |</span><br><span class="line">| HUAHUAa     | wwqw     | 川AOTNTG | man  | 15388342650 |         2 |       2 |</span><br><span class="line">| huahuahu    | dab5htd  | CAOG8T6  | man  | 15388342650 |         3 |       2 |</span><br><span class="line">| huahuahua   | ses23df  | 川ANB211 | man  | 15388342650 |         7 |       0 |</span><br><span class="line">| huahuahuahe | sdwadsd  | 川UCZ002 | man  | 15388342650 |         6 |       2 |</span><br><span class="line">+<span class="comment">-------------+----------+----------+------+-------------+-----------+---------+</span></span><br><span class="line">5 rows in <span class="keyword">set</span> (<span class="number">0.00</span> sec)</span><br><span class="line"></span><br><span class="line">mysql&gt;  <span class="keyword">select</span> * <span class="keyword">from</span> <span class="keyword">user</span> <span class="keyword">where</span> username REGEXP <span class="built_in">BINARY</span>  <span class="string">'HUAHUA'</span>;</span><br><span class="line">+<span class="comment">----------+------+----------+------+-------------+-----------+---------+</span></span><br><span class="line">| username | pwd  | license  | sex  | tel         | drive_age | cartype |</span><br><span class="line">+<span class="comment">----------+------+----------+------+-------------+-----------+---------+</span></span><br><span class="line">| HUAHUAa  | wwqw | 川AOTNTG | man  | 15388342650 |         2 |       2 |</span><br><span class="line">+<span class="comment">----------+------+----------+------+-------------+-----------+---------+</span></span><br><span class="line">1 row in <span class="keyword">set</span> (<span class="number">0.00</span> sec)</span><br></pre></td></tr></table></figure>
+
+<h6 id="7-2-进行OR匹配-通配符"><a href="#7-2-进行OR匹配-通配符" class="headerlink" title="7.2 进行OR匹配 |通配符"></a>7.2 进行OR匹配 |通配符</h6><p>为搜索两个串之一，使用|，如下所示：</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/*|通配符表示匹配huahuaa和yuhan其中之一，因此两者都可以返回*/</span></span><br><span class="line">mysql&gt;  select * from user where username REGEXP 'huahuaa|yuhan';</span><br><span class="line">+<span class="comment">----------+-----------+----------+------+-------------+-----------+---------+</span></span><br><span class="line">| username | pwd       | license  | sex  | tel         | drive_age | cartype |</span><br><span class="line">+<span class="comment">----------+-----------+----------+------+-------------+-----------+---------+</span></span><br><span class="line">| HUAHUAa  | wwqw      | 川AOTNTG | man  | 15388342650 |         2 |       2 |</span><br><span class="line">| yuhan    | hjzcxvw21 | CAOG8T6  | man  | 15388342650 |         5 |       2 |</span><br><span class="line">+<span class="comment">----------+-----------+----------+------+-------------+-----------+---------+</span></span><br><span class="line">2 rows in <span class="keyword">set</span> (<span class="number">0.00</span> sec)</span><br></pre></td></tr></table></figure>
+
+<h6 id="7-3-匹配几个字符之一"><a href="#7-3-匹配几个字符之一" class="headerlink" title="7.3 [] 匹配几个字符之一"></a>7.3 [] 匹配几个字符之一</h6><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> prod_name <span class="keyword">FROM</span> products <span class="keyword">WHERE</span> prod_name REGEXP <span class="string">'[123] Ton'</span>;</span><br><span class="line"><span class="comment">/*[] 是另一种形式的 OR 语句。事实上，正则表达式 [123]Ton</span></span><br><span class="line"><span class="comment">为 [1|2|3]Ton 的缩写，也可以使用后者。但是，需要用 [] 来定义 OR 语句</span></span><br><span class="line"><span class="comment">查找什么。为更好地理解这一点，请看下面的例子：*/</span></span><br><span class="line"><span class="keyword">SELECT</span> prod_name <span class="keyword">FROM</span> products <span class="keyword">WHERE</span> prod_name REGEXP <span class="string">'1|2|3 Ton'</span>;</span><br></pre></td></tr></table></figure>
+
+<p><img src="//huahuahuahe.github.io/2019/05/23/MySQL学习/F:%5Cblog%5Csource_posts%5Cimages%5C1601386281283.png" alt="1601386281283"></p>
+<p>如上所示：着相当于检测<code>1</code> ,<code>2</code>和<code>3 Ton</code>。</p>
+<h4 id="8、子查询"><a href="#8、子查询" class="headerlink" title="8、子查询"></a>8、子查询</h4><h5 id="8-1子查询过滤"><a href="#8-1子查询过滤" class="headerlink" title="8.1子查询过滤"></a>8.1子查询过滤</h5><p>在SELECT语句中，子查询总是<strong>从内向外</strong>处理</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> cust_id <span class="keyword">FROM</span> orders <span class="keyword">WHERE</span> order_num <span class="keyword">IN</span>(<span class="keyword">SELECT</span> </span><br><span class="line">                                              <span class="keyword">FROM</span> orderitems <span class="keyword">WHERE</span> prod_id = <span class="string">'TNT2'</span>)</span><br><span class="line"><span class="comment">/*这个查询表示：首先查询表orderitems中prod_id列为TNT2的oder_num数据，然后根据oder_num在表orders中查询cust_id数据。*/</span></span><br><span class="line"><span class="keyword">SELECT</span> cust_name,cuse_contact <span class="keyword">FROM</span> customers <span class="keyword">WHERE</span> cust_id <span class="keyword">IN</span>(<span class="keyword">SELECT</span> cust_id <span class="keyword">FROM</span> orders <span class="keyword">WHERE</span> order_num <span class="keyword">IN</span>(<span class="keyword">SELECT</span> order_num <span class="keyword">FROM</span> orderitems <span class="keyword">WHERE</span> prod_id = <span class="string">'TNT2'</span>));<span class="comment">/*套娃查询*/</span></span><br></pre></td></tr></table></figure>
+
+<p>虽然子查询一般与IN操作符结合使用，但也可以用于测试=、&lt;&gt;等操作符。</p>
+<h5 id="8-2作为计算字段使用子查询"><a href="#8-2作为计算字段使用子查询" class="headerlink" title="8.2作为计算字段使用子查询"></a>8.2作为计算字段使用子查询</h5><p>使用子查询的另一个方法是创建计算字段，假如需要显示orders表中姓名为hth的用户的订单数目，使用<code>SELECT COUNT（*）</code>来查询，如：</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> <span class="keyword">count</span>(*) <span class="keyword">from</span> orders <span class="keyword">where</span> username=<span class="string">'hth'</span>;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/*查询license以及每个用户订单的次数</span></span><br><span class="line"><span class="comment">  请注意这里是全限定列名，同时注意FROM user ，前面也智能去匹配user中存在的列，且需要外键去关联*/</span></span><br><span class="line"><span class="keyword">select</span> license ,(<span class="keyword">select</span> <span class="keyword">count</span>(*) <span class="keyword">from</span> orders <span class="keyword">where</span> orders.username=user.username)  <span class="keyword">from</span> <span class="keyword">user</span>;</span><br><span class="line"><span class="comment">/*结果如下：*/</span></span><br><span class="line">+<span class="comment">----------+------------------------------------------------------------------+</span></span><br><span class="line">| license  | (<span class="keyword">select</span> <span class="keyword">count</span>(*)<span class="keyword">from</span> orders <span class="keyword">where</span> orders.username=user.username) |</span><br><span class="line">+<span class="comment">----------+------------------------------------------------------------------+</span></span><br><span class="line">| CAOG8T6  |                                                                <span class="number">8</span> |</span><br><span class="line">| OG8T6    |                                                              <span class="number">252</span> |</span><br><span class="line">| CAOG8T6  |                                                                <span class="number">1</span> |</span><br><span class="line">| 川AOTNTG |                                                               <span class="number">19</span> |</span><br><span class="line">| CAOG8T6  |                                                                <span class="number">5</span> |</span><br><span class="line">| 川ANB211 |                                                               <span class="number">15</span> |</span><br><span class="line">| 川UCZ002 |                                                                <span class="number">0</span> |</span><br><span class="line">| CAOG8T6  |                                                                <span class="number">0</span> |</span><br><span class="line">| CAOG8T6  |                                                                <span class="number">0</span> |</span><br><span class="line">| CAOG8T6  |                                                                <span class="number">0</span> |</span><br><span class="line">| CAOG8T6  |                                                                <span class="number">0</span> |</span><br><span class="line">+<span class="comment">----------+------------------------------------------------------------------+</span></span><br><span class="line"><span class="number">11</span> <span class="keyword">rows</span> <span class="keyword">in</span> <span class="keyword">set</span> (<span class="number">0.02</span> sec)</span><br><span class="line"><span class="comment">/*如果不适用全限定列名，会导致：*/</span></span><br><span class="line">+<span class="comment">----------+------------------------------------------------------+</span></span><br><span class="line">| license  | (<span class="keyword">select</span> <span class="keyword">count</span>(*)<span class="keyword">from</span> orders <span class="keyword">where</span> username=username) |</span><br><span class="line">+<span class="comment">----------+------------------------------------------------------+</span></span><br><span class="line">| CAOG8T6  |                                                  <span class="number">300</span> |</span><br><span class="line">| OG8T6    |                                                  <span class="number">300</span> |</span><br><span class="line">| CAOG8T6  |                                                  <span class="number">300</span> |</span><br><span class="line">| 川AOTNTG |                                                  <span class="number">300</span> |</span><br><span class="line">| CAOG8T6  |                                                  <span class="number">300</span> |</span><br><span class="line">| 川ANB211 |                                                  <span class="number">300</span> |</span><br><span class="line">| 川UCZ002 |                                                  <span class="number">300</span> |</span><br><span class="line">| CAOG8T6  |                                                  <span class="number">300</span> |</span><br><span class="line">| CAOG8T6  |                                                  <span class="number">300</span> |</span><br><span class="line">| CAOG8T6  |                                                  <span class="number">300</span> |</span><br><span class="line">| CAOG8T6  |                                                  <span class="number">300</span> |</span><br><span class="line">+<span class="comment">----------+------------------------------------------------------+</span></span><br><span class="line"><span class="number">11</span> <span class="keyword">rows</span> <span class="keyword">in</span> <span class="keyword">set</span> (<span class="number">0.00</span> sec)</span><br><span class="line"><span class="comment">/*⭐⭐原因分析：不用全限定列名，就会导致MySQL认为你在对orders表中的username进行自身比较。eg:*/</span></span><br><span class="line">mysql&gt; <span class="keyword">select</span> <span class="keyword">count</span>(*)<span class="keyword">from</span> orders <span class="keyword">where</span> username=username;</span><br><span class="line">+<span class="comment">----------+</span></span><br><span class="line">| count(*) |</span><br><span class="line">+<span class="comment">----------+</span></span><br><span class="line">|      300 |</span><br><span class="line">+<span class="comment">----------+</span></span><br><span class="line">1 row in <span class="keyword">set</span> (<span class="number">0.00</span> sec)</span><br></pre></td></tr></table></figure>
+
+<p>##### </p>
+<h5 id="4、查询表的结构"><a href="#4、查询表的结构" class="headerlink" title="4、查询表的结构"></a>4、查询表的结构</h5><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">desc 表名</span><br></pre></td></tr></table></figure>
+
+<h5 id="2、插入数据"><a href="#2、插入数据" class="headerlink" title="2、插入数据"></a>2、插入数据</h5><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">insert</span> <span class="keyword">into</span> 表名 （字段<span class="number">1</span>，字段<span class="number">2</span>） <span class="keyword">values</span> （字段<span class="number">1</span>的值，字段<span class="number">2</span>的值）；</span><br></pre></td></tr></table></figure>
+
+<h5 id="3、更新（修改）数据"><a href="#3、更新（修改）数据" class="headerlink" title="3、更新（修改）数据"></a>3、更新（修改）数据</h5><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">update</span> 表名 <span class="keyword">set</span> 列名=列值 <span class="keyword">where</span> 列名=列值；</span><br></pre></td></tr></table></figure>
+
+<h5 id="4、删除记录"><a href="#4、删除记录" class="headerlink" title="4、删除记录"></a>4、删除记录</h5><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">delete</span> <span class="keyword">from</span> 表名 <span class="keyword">where</span> 列名=列值；  <span class="comment">-------（删除数据可以找回）</span></span><br><span class="line">  <span class="keyword">truncate</span> <span class="keyword">table</span> 表名；            <span class="comment">------（删除整个表再重新建立一个一样结构的表，数据不能找 回）</span></span><br></pre></td></tr></table></figure>
+
+<h5 id="5、修改某字段-表名-添加列-删除列"><a href="#5、修改某字段-表名-添加列-删除列" class="headerlink" title="5、修改某字段/表名  添加列  删除列"></a>5、修改某字段/表名  添加列  删除列</h5><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">alter</span> <span class="keyword">table</span> 表名 <span class="keyword">change</span>  旧字段名  新字段名 字段类型</span><br><span class="line"><span class="keyword">alter</span> <span class="keyword">table</span> 表名 <span class="keyword">rename</span> <span class="keyword">to</span> 新表名</span><br><span class="line"><span class="keyword">alter</span> <span class="keyword">table</span> 表名 <span class="keyword">add</span>  <span class="keyword">column</span> 列名 类型 <span class="keyword">not</span> <span class="literal">null</span>之类 <span class="keyword">after</span> COLUMN_NAME</span><br><span class="line"><span class="keyword">alter</span> <span class="keyword">table</span> 表名字 <span class="keyword">drop</span> <span class="keyword">column</span> 列名</span><br></pre></td></tr></table></figure>
+
+<h5 id="6、设置某int类型字段为主键"><a href="#6、设置某int类型字段为主键" class="headerlink" title="6、设置某int类型字段为主键"></a>6、设置某int类型字段为主键</h5><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">alter</span> <span class="keyword">table</span> 表名 <span class="keyword">add</span> primary <span class="keyword">key</span>(字段名）； <span class="comment">---（字段名一般选择为id）</span></span><br></pre></td></tr></table></figure>
+
+<h5 id="7、设置主键自增"><a href="#7、设置主键自增" class="headerlink" title="7、设置主键自增"></a>7、设置主键自增</h5><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">alter</span> <span class="keyword">table</span> tableName <span class="keyword">modify</span> <span class="keyword">id</span> <span class="built_in">int</span> auto_increment</span><br></pre></td></tr></table></figure>
+
+<h5 id="8、创建表时就设置自增主键"><a href="#8、创建表时就设置自增主键" class="headerlink" title="8、创建表时就设置自增主键"></a>8、创建表时就设置自增主键</h5><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">create</span> <span class="keyword">table</span> <span class="keyword">user</span>(</span><br><span class="line">     <span class="keyword">id</span> <span class="built_in">int</span>(<span class="number">4</span>) primary <span class="keyword">key</span> <span class="keyword">not</span> <span class="literal">null</span> auto_increment,</span><br><span class="line">     username <span class="built_in">varchar</span>(<span class="number">10</span>) <span class="keyword">not</span> <span class="literal">null</span>,</span><br><span class="line">     userpwd <span class="built_in">varchar</span>(<span class="number">10</span>) <span class="keyword">not</span> <span class="literal">null</span>);</span><br></pre></td></tr></table></figure>
+
+<h5 id="9、排序"><a href="#9、排序" class="headerlink" title="9、排序"></a>9、排序</h5><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span> <span class="keyword">id</span> <span class="keyword">from</span> 表名 <span class="keyword">order</span> <span class="keyword">by</span> <span class="keyword">id</span>   <span class="comment">---(依次按照id和name排序)</span></span><br></pre></td></tr></table></figure>
+
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span> <span class="keyword">id</span>,price,<span class="keyword">name</span> <span class="keyword">from</span> 表名 <span class="keyword">order</span> <span class="keyword">by</span> <span class="keyword">id</span>,<span class="keyword">name</span>   <span class="comment">---(依次按照id和name排序)</span></span><br></pre></td></tr></table></figure>
+
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span> <span class="keyword">id</span>,price,<span class="keyword">name</span> <span class="keyword">from</span> 表名 <span class="keyword">order</span> <span class="keyword">by</span> <span class="keyword">id</span> <span class="keyword">desc</span>,<span class="keyword">name</span>   <span class="comment">---(desc降序排列，只应用到直接位于其前面的列名)</span></span><br></pre></td></tr></table></figure>
+
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">---使用 ORDER BY 和 LIMIT 的组合，能够找出一个列中最高或最低的值。</span></span><br><span class="line"><span class="keyword">select</span> price <span class="keyword">from</span> products <span class="keyword">order</span> <span class="keyword">by</span></span><br></pre></td></tr></table></figure>
+
+<h5 id="10、通配符"><a href="#10、通配符" class="headerlink" title="10、通配符"></a>10、通配符</h5><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">---百分号通配符 % 表示任何字符出现的任意次数</span></span><br><span class="line"><span class="keyword">select</span> <span class="keyword">id</span>,price <span class="keyword">from</span> products <span class="keyword">where</span> <span class="keyword">id</span> <span class="keyword">like</span> <span class="string">'001%'</span>  </span><br><span class="line"><span class="comment">--其实就是在检索所有id以001开头的产品的id、价格 </span></span><br><span class="line"><span class="comment">--⭐区分大小写 根据MySQL的配置方式，搜索可以是区分大小写的。如果区分大小写， 'jet%' 与 JetPack 1000 将不匹配</span></span><br></pre></td></tr></table></figure>
+
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">--通配符也可以在中间，但极少使用</span></span><br><span class="line"><span class="keyword">select</span> <span class="keyword">id</span>,price <span class="keyword">from</span> products <span class="keyword">where</span> <span class="keyword">id</span> <span class="keyword">like</span> <span class="string">'001%00'</span> </span><br><span class="line"><span class="comment">--其实就是在检索所有id以001开头，以00结束的产品的id、价格</span></span><br></pre></td></tr></table></figure>
+
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">--另一个有用的通配符是下划线（ _ ）。下划线的用途与 % 一样，但下划线只匹配单个字符而不是多个字符。</span></span><br><span class="line"><span class="keyword">select</span> <span class="keyword">name</span>,price <span class="keyword">from</span> products <span class="keyword">where</span> <span class="keyword">name</span> <span class="keyword">like</span> <span class="string">'hu_hu_hu_'</span></span><br></pre></td></tr></table></figure>
+
+<p>⭐⭐11、外键 <a href="https://www.w3school.com.cn/sql/sql_foreignkey.asp" target="_blank" rel="noopener">https://www.w3school.com.cn/sql/sql_foreignkey.asp</a></p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">--外键（foreign key）作为某个表的一列，他包含另一个表的主键值</span></span><br></pre></td></tr></table></figure>
+
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">--创建外键连接</span></span><br><span class="line"> <span class="keyword">CREATE</span> <span class="keyword">TABLE</span> Orders</span><br><span class="line">(</span><br><span class="line">	Id_O <span class="built_in">int</span> <span class="keyword">NOT</span> <span class="literal">NULL</span>,</span><br><span class="line">	OrderNo <span class="built_in">int</span> <span class="keyword">NOT</span> <span class="literal">NULL</span>,</span><br><span class="line">	Id_P <span class="built_in">int</span>,</span><br><span class="line">	PRIMARY <span class="keyword">KEY</span> (Id_O),</span><br><span class="line">	<span class="keyword">FOREIGN</span> <span class="keyword">KEY</span> (Id_P) <span class="keyword">REFERENCES</span> Persons(Id_P)</span><br><span class="line">)</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/*Cannot add foreign key constraint 错误解决办法：</span></span><br><span class="line"><span class="comment">产生这个错误的多数原因有一下两点： </span></span><br><span class="line"><span class="comment">1，两张表里要设主键和外键的字段的数据类型或者数据长度不一样 （例如这个是int 另外一个是tinyint，或者都是int，但是设置的长度不同）</span></span><br><span class="line"><span class="comment">2，某个表里已经有记录了</span></span><br><span class="line"><span class="comment">3、两个表的引擎不一样，查看表的引擎语句：</span></span><br><span class="line"><span class="comment">show table status from 数据库名 where name='表名';</span></span><br><span class="line"><span class="comment">4、要设置外键的字段不能为主键</span></span><br><span class="line"><span class="comment">5、改建所参考的字段必须为主键</span></span><br><span class="line"><span class="comment">6、两个字段必须具有相同的数据类型和约束</span></span><br><span class="line"><span class="comment">来自 https://www.cnblogs.com/olddriver123/p/8335263.html</span></span><br></pre></td></tr></table></figure>
+
+<h5 id="12、主键https-www-w3school-com-cn-sql-sql-primarykey-asp"><a href="#12、主键https-www-w3school-com-cn-sql-sql-primarykey-asp" class="headerlink" title="12、主键https://www.w3school.com.cn/sql/sql_primarykey.asp"></a>12、主键<a href="https://www.w3school.com.cn/sql/sql_primarykey.asp" target="_blank" rel="noopener">https://www.w3school.com.cn/sql/sql_primarykey.asp</a></h5><h5 id="13、UNIQUE-KEY问题"><a href="#13、UNIQUE-KEY问题" class="headerlink" title="13、UNIQUE KEY问题"></a>13、UNIQUE KEY问题</h5><p><img src="//huahuahuahe.github.io/2019/05/23/MySQL学习/F:%5Cblog%5Csource_posts%5Cimages%5Cunique_key.png" alt></p>
+<p>为什么用查询创建表信息的语句多了这几句话啊，不知道什么时候弄错的。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">alter table parking_lot_swpu.parking_info drop index parking_spot_id_2</span><br></pre></td></tr></table></figure>
+
+<p>14、<strong>事务处理</strong></p>
+<p>⭐⭐术语：</p>
+<p>​        <strong>事务（transaction）</strong>– 指一组SQL语句；</p>
+<p>​        <strong>回退（rollback）</strong>– 指撤销指定SQL语句的过程；</p>
+<p>​        <strong>提交（commit）</strong>– 指将未存储的SQL语句结果写入数据库表；</p>
+<p>​        <strong>保留点（savepoint）</strong>– 指事务处理中设置的临时占位符（place-hoder），您可以对它发布回退（区别于回退整个事务）。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">--控制简单的事务处理</span><br><span class="line">select * from ordertotals;</span><br><span class="line">begin 或 start transaction;</span><br><span class="line">delete from ordertotals;</span><br><span class="line">select * from ordertotals;</span><br><span class="line">rollback;</span><br><span class="line">select * from ordertotals;</span><br><span class="line">--首先执行一条 SELECT 以显示该表不为空。然后开始一个事务处理，用一条 DELETE 语句删除 ordertotals 中的所有行。另一条SELECT 语句验证 ordertotals 确实为空。这时用一条 ROLLBACK 语句回退 START TRANSACTION 之后的所有语句，最后一条 SELECT 语句显示该表不为空。</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">--⭐⭐使用commit</span><br><span class="line">	一般的MySQL语句都是直接针对数据库表执行和编写的。这就是所谓的隐含提交（implicit commit），即提交（写或保存）操作是自动进行的。但是，在事务处理块中，提交不会隐含地进行。为进行明确的提交，使用COMMIT 语句，如下所示：</span><br><span class="line">start transaction 或 begin;</span><br><span class="line">delete from orderitems where order_num = 20010;</span><br><span class="line">delete from orders where order_num = 20010;</span><br><span class="line">commit;</span><br><span class="line">--在这个例子中，从系统中完全删除订单 20010 。因为涉及更新两个数据库表 orders 和 orderItems ，所以使用事务处理块来保证订单不被部分删除。最后的 COMMIT 语句仅在不出错时写出更改。如果第一条 DELETE 起作用，但第二条失败，则 DELETE 不会提交（实际上，它是被自动撤销的）。</span><br></pre></td></tr></table></figure>
+
+<h5 id="15、创建UNIQUE约束"><a href="#15、创建UNIQUE约束" class="headerlink" title="15、创建UNIQUE约束"></a>15、创建UNIQUE约束</h5><p>对name字段添加unique唯一性约束</p>
+<p>① 创建表时添加:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">CREATE TABLE user</span><br><span class="line">(</span><br><span class="line">	id int NOT NULL AUTO_INCREMENT,</span><br><span class="line">	name varchar(255),</span><br><span class="line">	PRIMARY KEY (id),</span><br><span class="line">	UNIQUE (name)</span><br><span class="line">)</span><br></pre></td></tr></table></figure>
+
+<p>② 表已经存在时添加:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ALTER TABLE user ADD UNIQUE (name)</span><br></pre></td></tr></table></figure>
+
+<p><strong>撤销unique约束</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ALTER TABLE user DROP INDEX name;</span><br></pre></td></tr></table></figure>
+
+<h3 id="访问数据库流程"><a href="#访问数据库流程" class="headerlink" title="访问数据库流程"></a>访问数据库流程</h3><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">驱动管理器<span class="comment">----连接数据库/建立连接（Socket）----SQL语句----结果集   (需要JDBC-java包)</span></span><br></pre></td></tr></table></figure>
+
+<p>1、建立连接本质是Socket，是一个远程的连接，比较耗时！真正的开发中一般使用连接池来管理连接对象。</p>
+<p>2、Statement会导致SQL注入</p>
+<p>3、更新一个自己理解的误区还是什么？？  —-    我突然想远程连接自己的mysql数据库，没有连接成功正在烦，但是我为什么要远程连接字地数据库呢？我的服务器程序是直接操作的服务器本地的数据库，只要保证我的客户端软件可以和服务器端程序连接就可以了啊！！！！</p>
+<p>4、PreparedStatement的参数索引是从开始计算的</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">Class.forName（“com.mysql.jdbc.Driver”）;</span><br><span class="line">String url = <span class="string">"jdbc:mysql://localhost:3306/test"</span>;</span><br><span class="line">Connection conn = DriverManager.getConnection(url,用户，密码);     Crtl+Shif+O：important 类</span><br><span class="line">String sql=<span class="string">"insert into 表名(列1,列2,列3,) values(?,?,?)"</span>;</span><br><span class="line">PreparedStatement ps = conn.prepareStatement(sql);</span><br><span class="line">ps.setInt(<span class="number">1</span>,);</span><br><span class="line">ps.setObject(<span class="number">2</span>,);</span><br><span class="line">ps.serDate(<span class="number">3</span>,<span class="keyword">new</span> java.sql.Data(System.currentTimeMillis()));</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">ResultSet rs = ps.excuteQuery();</span><br><span class="line"><span class="keyword">while</span>(rs.next())&#123;</span><br><span class="line">     System.out.pritln(rs.getInt(<span class="number">1</span>)+<span class="string">"---"</span>+rs.getString(<span class="number">2</span>)+<span class="string">"----"</span>++rs.getString(<span class="number">3</span>));</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>5、finally处一定要要关闭(Connect、PreparedStatement）</p>
+<p>​      遵循：resultset —&gt; statement —&gt; connection这样的关闭顺序！</p>
+<p>​      对三个操作需要执行不同的try — catch ，这样可以保证在关闭某个操作出问题时不会影响其他的关闭操作。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">        <span class="keyword">if</span>(rs != <span class="keyword">null</span>)&#123;</span><br><span class="line">      <span class="keyword">try</span> &#123;</span><br><span class="line">	rs.close();</span><br><span class="line">&#125; <span class="keyword">catch</span> (SQLException e) &#123;</span><br><span class="line">	e.printStackTrace();</span><br><span class="line">&#125;</span><br><span class="line">      &#125;</span><br><span class="line">  <span class="keyword">if</span>(ps != <span class="keyword">null</span>) &#123;</span><br><span class="line">  	<span class="keyword">try</span> &#123;</span><br><span class="line">	ps.close();</span><br><span class="line">&#125; <span class="keyword">catch</span> (SQLException e) &#123;</span><br><span class="line">	e.printStackTrace();</span><br><span class="line">&#125;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">if</span>(conn != <span class="keyword">null</span>) &#123;</span><br><span class="line">  	<span class="keyword">try</span> &#123;</span><br><span class="line">	conn.close();</span><br><span class="line">&#125; <span class="keyword">catch</span> (SQLException e) &#123;</span><br><span class="line">	e.printStackTrace();</span><br><span class="line">&#125;</span><br><span class="line">  &#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="JDBC总结"><a href="#JDBC总结" class="headerlink" title="JDBC总结"></a>JDBC总结</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> java.sql.DriverManager;</span><br><span class="line"><span class="keyword">import</span> java.sql.ResultSet;</span><br><span class="line"><span class="keyword">import</span> java.sql.SQLException;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> java.sql.Statement;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> java.sql.Connection;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">JDBCUtil</span> </span>&#123;</span><br><span class="line">	</span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> Connection <span class="title">getMysqlConn</span><span class="params">(String url,String user, String pwd)</span></span>&#123;</span><br><span class="line">		<span class="keyword">try</span> &#123;</span><br><span class="line">			Class.forName(<span class="string">"com.mysql.jdbc.Driver"</span>);</span><br><span class="line">			<span class="keyword">return</span> DriverManager.getConnection(url, user, pwd);</span><br><span class="line">		&#125; <span class="keyword">catch</span> (Exception e) &#123;</span><br><span class="line">			e.printStackTrace();</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">return</span> <span class="keyword">null</span>;</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">close</span><span class="params">(ResultSet rs, Statement ps ,Connection conn)</span> </span>&#123;</span><br><span class="line">		    <span class="keyword">if</span>(rs != <span class="keyword">null</span>)&#123;</span><br><span class="line">		        <span class="keyword">try</span> &#123;</span><br><span class="line">					rs.close();</span><br><span class="line">				&#125; <span class="keyword">catch</span> (SQLException e) &#123;</span><br><span class="line">					e.printStackTrace();</span><br><span class="line">				&#125;</span><br><span class="line">		        &#125;</span><br><span class="line">		    <span class="keyword">if</span>(ps != <span class="keyword">null</span>) &#123;</span><br><span class="line">		    	<span class="keyword">try</span> &#123;</span><br><span class="line">					ps.close();</span><br><span class="line">				&#125; <span class="keyword">catch</span> (SQLException e) &#123;</span><br><span class="line">					e.printStackTrace();</span><br><span class="line">				&#125;</span><br><span class="line">		    &#125;</span><br><span class="line">		    <span class="keyword">if</span>(conn != <span class="keyword">null</span>) &#123;</span><br><span class="line">		    	<span class="keyword">try</span> &#123;</span><br><span class="line">					conn.close();</span><br><span class="line">				&#125; <span class="keyword">catch</span> (SQLException e) &#123;</span><br><span class="line">					e.printStackTrace();</span><br><span class="line">				&#125;</span><br><span class="line">		    &#125;</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">close</span><span class="params">(Statement ps ,Connection conn)</span> </span>&#123;</span><br><span class="line">	    <span class="keyword">if</span>(ps != <span class="keyword">null</span>) &#123;</span><br><span class="line">	    	<span class="keyword">try</span> &#123;</span><br><span class="line">				ps.close();</span><br><span class="line">			&#125; <span class="keyword">catch</span> (SQLException e) &#123;</span><br><span class="line">				e.printStackTrace();</span><br><span class="line">			&#125;</span><br><span class="line">	    &#125;</span><br><span class="line">	    <span class="keyword">if</span>(conn != <span class="keyword">null</span>) &#123;</span><br><span class="line">	    	<span class="keyword">try</span> &#123;</span><br><span class="line">				conn.close();</span><br><span class="line">			&#125; <span class="keyword">catch</span> (SQLException e) &#123;</span><br><span class="line">				e.printStackTrace();</span><br><span class="line">			&#125;</span><br><span class="line">	    &#125;</span><br><span class="line">&#125;</span><br><span class="line">	</span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">close</span><span class="params">(Connection conn)</span> </span>&#123;</span><br><span class="line">	    <span class="keyword">if</span>(conn != <span class="keyword">null</span>) &#123;</span><br><span class="line">	    	<span class="keyword">try</span> &#123;</span><br><span class="line">				conn.close();</span><br><span class="line">			&#125; <span class="keyword">catch</span> (SQLException e) &#123;</span><br><span class="line">				e.printStackTrace();</span><br><span class="line">			&#125;</span><br><span class="line">	    &#125;</span><br><span class="line">&#125;</span><br><span class="line">	</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h4 id="MySQL问题总结："><a href="#MySQL问题总结：" class="headerlink" title="MySQL问题总结："></a>MySQL问题总结：</h4><h5 id="1、开启binlog日志遇到的问题："><a href="#1、开启binlog日志遇到的问题：" class="headerlink" title="1、开启binlog日志遇到的问题："></a>1、开启binlog日志遇到的问题：</h5><p>如何开启binlog：</p>
+<figure class="highlight ini"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#设置binlog日志</span></span><br><span class="line"><span class="attr">server_id</span>=<span class="number">1918</span></span><br><span class="line"><span class="attr">log_bin</span>=mysql-bin</span><br><span class="line"><span class="attr">binlog-format</span>=Row</span><br></pre></td></tr></table></figure>
+
+<p>完整配置表如下：</p>
+<figure class="highlight ini"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="section">[mysqld]</span></span><br><span class="line"><span class="comment">#设置3306端口</span></span><br><span class="line"><span class="attr">port</span> = <span class="number">3306</span> </span><br><span class="line"><span class="comment"># 设置mysql的安装目录</span></span><br><span class="line"><span class="attr">basedir</span>=F:\mysql\mysql-<span class="number">5.7</span>.<span class="number">26</span>-winx64</span><br><span class="line"><span class="comment"># 设置mysql数据库的数据的存放目录</span></span><br><span class="line"><span class="attr">datadir</span>=F:\mysql\mysql-<span class="number">5.7</span>.<span class="number">26</span>-winx64\data </span><br><span class="line"><span class="comment"># 允许最大连接数</span></span><br><span class="line"><span class="attr">max_connections</span>=<span class="number">200</span></span><br><span class="line"><span class="comment"># 服务端使用的字符集默认为8比特编码的latin1字符集</span></span><br><span class="line"><span class="attr">character-set-server</span>=utf8</span><br><span class="line"><span class="comment"># 创建新表时将使用的默认存储引擎</span></span><br><span class="line"><span class="attr">default-storage-engine</span>=INNODB</span><br><span class="line"></span><br><span class="line"><span class="comment">#设置binlog日志</span></span><br><span class="line"><span class="attr">server_id</span>=<span class="number">1918</span></span><br><span class="line"><span class="attr">log_bin</span>=mysql-bin</span><br><span class="line"><span class="attr">binlog-format</span>=Row</span><br></pre></td></tr></table></figure>
+
+<p>遇到问题：先看日志：</p>
+<figure class="highlight cmd"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">PS F:\mysql\mysql-<span class="number">5</span>.<span class="number">7</span>.<span class="number">26</span>-winx64\bin&gt; <span class="built_in">cd</span> F:\mysql\mysql-<span class="number">5</span>.<span class="number">7</span>.<span class="number">26</span>-winx64\bin</span><br><span class="line">PS F:\mysql\mysql-<span class="number">5</span>.<span class="number">7</span>.<span class="number">26</span>-winx64\bin&gt; mysqld --console</span><br></pre></td></tr></table></figure>
+
+<p>找寻其中的error</p>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/Sql/" rel="tag"># -Sql</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2019/05/22/Fragment基础/" rel="prev" title="Fragment学习">
+      <i class="fa fa-chevron-left"></i> Fragment学习
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2019/05/26/CirclerView/" rel="next" title="Android自定义组件：CirclerView">
+      Android自定义组件：CirclerView <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#MySQL学习"><span class="nav-number">1.</span> <span class="nav-text">MySQL学习</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#查询端口号："><span class="nav-number">1.1.</span> <span class="nav-text">查询端口号：</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#1、查询数据"><span class="nav-number">1.2.</span> <span class="nav-text">1、查询数据</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#2、查询指定数据"><span class="nav-number">1.3.</span> <span class="nav-text">2、查询指定数据</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#3、条件查询"><span class="nav-number">1.4.</span> <span class="nav-text">3、条件查询</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#4、IN操作符"><span class="nav-number">1.5.</span> <span class="nav-text">4、IN操作符</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#5、NOT操作符"><span class="nav-number">1.6.</span> <span class="nav-text">5、NOT操作符</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#6、LIKE操作符"><span class="nav-number">1.7.</span> <span class="nav-text">6、LIKE操作符</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#6-1-百分号（-）通配符"><span class="nav-number">1.7.1.</span> <span class="nav-text">6.1  百分号（%）通配符</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#6-2-下划线（-）通配符"><span class="nav-number">1.7.2.</span> <span class="nav-text">6.2  下划线（ _ ）通配符</span></a></li></ol></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#7、正则表达式"><span class="nav-number">2.</span> <span class="nav-text">7、正则表达式</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#7-1-BINARY关键字"><span class="nav-number">2.0.1.</span> <span class="nav-text">7.1 BINARY关键字</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#7-2-进行OR匹配-通配符"><span class="nav-number">2.0.2.</span> <span class="nav-text">7.2 进行OR匹配 |通配符</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#7-3-匹配几个字符之一"><span class="nav-number">2.0.3.</span> <span class="nav-text">7.3 [] 匹配几个字符之一</span></a></li></ol></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#8、子查询"><span class="nav-number">3.</span> <span class="nav-text">8、子查询</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#8-1子查询过滤"><span class="nav-number">3.1.</span> <span class="nav-text">8.1子查询过滤</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#8-2作为计算字段使用子查询"><span class="nav-number">3.2.</span> <span class="nav-text">8.2作为计算字段使用子查询</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#4、查询表的结构"><span class="nav-number">3.3.</span> <span class="nav-text">4、查询表的结构</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#2、插入数据"><span class="nav-number">3.4.</span> <span class="nav-text">2、插入数据</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#3、更新（修改）数据"><span class="nav-number">3.5.</span> <span class="nav-text">3、更新（修改）数据</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#4、删除记录"><span class="nav-number">3.6.</span> <span class="nav-text">4、删除记录</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#5、修改某字段-表名-添加列-删除列"><span class="nav-number">3.7.</span> <span class="nav-text">5、修改某字段/表名  添加列  删除列</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#6、设置某int类型字段为主键"><span class="nav-number">3.8.</span> <span class="nav-text">6、设置某int类型字段为主键</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#7、设置主键自增"><span class="nav-number">3.9.</span> <span class="nav-text">7、设置主键自增</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#8、创建表时就设置自增主键"><span class="nav-number">3.10.</span> <span class="nav-text">8、创建表时就设置自增主键</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#9、排序"><span class="nav-number">3.11.</span> <span class="nav-text">9、排序</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#10、通配符"><span class="nav-number">3.12.</span> <span class="nav-text">10、通配符</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#12、主键https-www-w3school-com-cn-sql-sql-primarykey-asp"><span class="nav-number">3.13.</span> <span class="nav-text">12、主键https://www.w3school.com.cn/sql/sql_primarykey.asp</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#13、UNIQUE-KEY问题"><span class="nav-number">3.14.</span> <span class="nav-text">13、UNIQUE KEY问题</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#15、创建UNIQUE约束"><span class="nav-number">3.15.</span> <span class="nav-text">15、创建UNIQUE约束</span></a></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#访问数据库流程"><span class="nav-number"></span> <span class="nav-text">访问数据库流程</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#JDBC总结"><span class="nav-number"></span> <span class="nav-text">JDBC总结</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#MySQL问题总结："><span class="nav-number">1.</span> <span class="nav-text">MySQL问题总结：</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#1、开启binlog日志遇到的问题："><span class="nav-number">1.1.</span> <span class="nav-text">1、开启binlog日志遇到的问题：</span></a></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Hetianhan"
+      src="/images/hmbb.gif">
+  <p class="site-author-name" itemprop="name">Hetianhan</p>
+  <div class="site-description" itemprop="description">西柚在读废物研究生，野生程序员，擅长吃喝玩乐</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">40</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">9</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">9</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/HuaHuaHuaHe" title="GitHub → https://github.com/HuaHuaHuaHe" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:tianhan.he@foxmail.com" title="E-Mail → mailto:tianhan.he@foxmail.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://weibo.com/yourname" title="Weibo → https://weibo.com/yourname" rel="noopener" target="_blank"><i class="fab fa-weibo fa-fw"></i>Weibo</a>
+      </span>
+  </div>
+
+
+  <div class="links-of-blogroll motion-element">
+    <div class="links-of-blogroll-title"><i class="fa fa-link fa-fw"></i>
+      友链
+    </div>
+    <ul class="links-of-blogroll-list">
+        <li class="links-of-blogroll-item">
+          <a href="https://chenyifaer.com/tags/" title="https://chenyifaer.com/tags/" rel="noopener" target="_blank">陈一发儿</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="https://repo.huaweicloud.com/java/jdk/" title="https://repo.huaweicloud.com/java/jdk/" rel="noopener" target="_blank">华为镜像</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="http://www.yinfans.me/" title="http://www.yinfans.me/" rel="noopener" target="_blank">yfs(电影资源)</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="http://lightzhan.xyz/" title="http://lightzhan.xyz/" rel="noopener" target="_blank">light教程</a>
+        </li>
+    </ul>
+  </div>
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2023</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Hetianhan</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://pisces.theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a> 强力驱动
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  
+  <script color='0,0,255' opacity='0.5' zIndex='-1' count='99' src="/lib/canvas-nest/canvas-nest.min.js"></script>
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+<script src="/js/utils.js"></script><script src="/js/motion.js"></script>
+<script src="/js/schemes/pisces.js"></script>
+<script src="/js/next-boot.js"></script>
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>

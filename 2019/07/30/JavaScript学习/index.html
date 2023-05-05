@@ -1,0 +1,532 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 3.9.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/ufo.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/ufo16.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/ufo16.png">
+  <link rel="mask-icon" href="/images/ufo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"huahuahuahe.github.io","root":"/","scheme":"Pisces","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta name="description" content="数组 []JavaScript的数组可以包括任意数据的类型（用逗号分隔&amp;amp;&amp;amp;是否可以不分？？？索引从0开始，索引超出范围用undefined表示）">
+<meta name="keywords" content="-JavaScript">
+<meta property="og:type" content="article">
+<meta property="og:title" content="JavaScript学习">
+<meta property="og:url" content="https://huahuahuahe.github.io/2019/07/30/JavaScript学习/index.html">
+<meta property="og:site_name" content="Hetianhan的博客">
+<meta property="og:description" content="数组 []JavaScript的数组可以包括任意数据的类型（用逗号分隔&amp;amp;&amp;amp;是否可以不分？？？索引从0开始，索引超出范围用undefined表示）">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="https://huahuahuahe.github.io/2019/07/30/JavaScript学习/F:%5Cblog%5Csource%5Cimages%5Cjavascript_extend.png">
+<meta property="og:updated_time" content="2021-01-23T18:46:10.100Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="JavaScript学习">
+<meta name="twitter:description" content="数组 []JavaScript的数组可以包括任意数据的类型（用逗号分隔&amp;amp;&amp;amp;是否可以不分？？？索引从0开始，索引超出范围用undefined表示）">
+<meta name="twitter:image" content="https://huahuahuahe.github.io/2019/07/30/JavaScript学习/F:%5Cblog%5Csource%5Cimages%5Cjavascript_extend.png">
+
+<link rel="canonical" href="https://huahuahuahe.github.io/2019/07/30/JavaScript学习/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>JavaScript学习 | Hetianhan的博客</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">Hetianhan的博客</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="user fa-fw"></i>关于我</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="tags fa-fw"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="th fa-fw"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="archive fa-fw"></i>归档</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://huahuahuahe.github.io/2019/07/30/JavaScript学习/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/hmbb.gif">
+      <meta itemprop="name" content="Hetianhan">
+      <meta itemprop="description" content="西柚在读废物研究生，野生程序员，擅长吃喝玩乐">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hetianhan的博客">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          JavaScript学习
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2019-07-30 00:00:00" itemprop="dateCreated datePublished" datetime="2019-07-30T00:00:00+08:00">2019-07-30</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2021-01-24 02:46:10" itemprop="dateModified" datetime="2021-01-24T02:46:10+08:00">2021-01-24</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/JavaScript/" itemprop="url" rel="index"><span itemprop="name">-JavaScript</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <ol>
+<li><p><strong>数组 []</strong><br>JavaScript的数组可以包括任意数据的类型（用逗号分隔&amp;&amp;是否可以不分？？？索引从0开始，索引超出范围用undefined表示）<a id="more"></a></p>
+</li>
+<li><p><strong>对象</strong><br>JavaScript的对象是一组由键-值对组成的无序集合。</p>
+<p>JavaScript的对象用于描述现实世界的某个对象。例如，为了描述某个人，我们可以用若干键值对来描述他：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> person = &#123;</span><br><span class="line">		name : <span class="string">'Hth'</span>,</span><br><span class="line">		age : <span class="number">23</span>,</span><br><span class="line">          	height : <span class="number">1.63</span>,</span><br><span class="line">		city : <span class="string">'Chengdu'</span>,</span><br><span class="line">		zipcode : <span class="literal">null</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+</li>
+</ol>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">   </span><br><span class="line">想要获取一个对象属性的值，我们用<span class="string">`person.name`</span>的形式（和Java一样？？？）</span><br><span class="line"></span><br><span class="line">   访问属性是通过<span class="string">`.`</span>操作符完成的，但这要求属性名必须是一个有效的变量名。如果属性名包含特殊字符，就必须     用<span class="string">`''`</span>括起来:</span><br><span class="line"></span><br><span class="line">   <span class="string">``</span><span class="string">`javascript</span></span><br><span class="line"><span class="string">        var xiaohong = &#123;</span></span><br><span class="line"><span class="string">            name : 'xiaohong',</span></span><br><span class="line"><span class="string">            'middle-school' : 'No.1 Middle School'</span></span><br><span class="line"><span class="string">        &#125;</span></span><br></pre></td></tr></table></figure>
+
+<p>   <code>xiaohong</code>的属性名<code>middle-school</code>不是一个有效的变量，就需要用<code>&#39;&#39;</code>括起来。访问这个属性也无法使用<code>.</code>操作符，必须用<code>[&#39;xxx&#39;]</code>来访问：</p>
+   <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">xiaohong[<span class="string">'middle-school'</span>]; <span class="comment">// 'No.1 Middle School'</span></span><br><span class="line">xiaohong[<span class="string">'name'</span>]; <span class="comment">// '小红'</span></span><br><span class="line">xiaohong.name; <span class="comment">// '小红'</span></span><br></pre></td></tr></table></figure>
+
+<p>   由于JavaScript的对象是动态类型，你可以自由地给一个对象添加或删除属性：</p>
+   <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> xiaoming = &#123;</span><br><span class="line">    name: <span class="string">'小明'</span></span><br><span class="line">&#125;;</span><br><span class="line">xiaoming.age; <span class="comment">// undefined</span></span><br><span class="line">xiaoming.age = <span class="number">18</span>; <span class="comment">// 新增一个age属性</span></span><br><span class="line">xiaoming.age; <span class="comment">// 18</span></span><br><span class="line"><span class="keyword">delete</span> xiaoming.age; <span class="comment">// 删除age属性</span></span><br><span class="line">xiaoming.age; <span class="comment">// undefined</span></span><br><span class="line"><span class="keyword">delete</span> xiaoming[<span class="string">'name'</span>]; <span class="comment">// 删除name属性</span></span><br><span class="line">xiaoming.name; <span class="comment">// undefined</span></span><br><span class="line"><span class="keyword">delete</span> xiaoming.school; <span class="comment">// 删除一个不存在的school属性也不会报错</span></span><br></pre></td></tr></table></figure>
+
+<p>   如果我们要检测<code>xiaoming</code>是否拥有某一属性，可以用<code>in</code>操作符（<code>&#39;toString&#39; in xiaoming;</code>）（但是这个属性可能是对象继承得到的）。要判断一个属性是否是<code>xiaoming</code>自身拥有的，而不是继承得到的，可以用<code>hasOwnProperty()</code>方法：<code>xiaoming.hasOwnProperty(&#39;toString&#39;);</code></p>
+<ol start="3">
+<li><p><strong>变量</strong> (变量名也可以用中文，但是，请不要给自己找麻烦)</p>
+<p>变量在JavaScript中就是用一个变量名表示，变量名是大小写英文、数字、<code>$</code>和<code>_</code>的组合，且不能用数字开头。变量名也不能是JavaScript的关键字，如<code>if</code>、<code>while</code>等。申明一个变量用<code>var</code>语句，比如:</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> a; <span class="comment">// 申明了变量a，此时a的值为undefined</span></span><br><span class="line">      <span class="keyword">var</span> $b = <span class="number">1</span>; <span class="comment">// 申明了变量$b，同时给$b赋值，此时$b的值为1</span></span><br><span class="line"><span class="keyword">var</span> s_007 = <span class="string">'007'</span>; <span class="comment">// s_007是一个字符串</span></span><br><span class="line">      <span class="keyword">var</span> Answer = <span class="literal">true</span>; <span class="comment">// Answer是一个布尔值true</span></span><br><span class="line"><span class="keyword">var</span> t = <span class="literal">null</span>; <span class="comment">// t的值是null</span></span><br></pre></td></tr></table></figure>
+
+<p>在同一个页面的不同的JavaScript文件中，如果都不用<code>var</code>申明，恰好都使用了变量<code>i</code>，将造成变量<code>i</code>互相影响，产生难以调试的错误结果。</p>
+<p>使用<code>var</code>申明的变量则不是全局变量，它的范围被限制在该变量被申明的函数体内（函数的概念将稍后讲  解），同名变量在不同的函数体内互不冲突。</p>
+</li>
+<li><p><code>${ }</code>用法可以简化拼接字符串的烦恼</p>
+</li>
+<li><p><strong>函数</strong><br>廖雪峰讲函数那里讲的太好了！！！<br>本质上说，函数就是最基本的一种代码抽象的方式。像<code>Σ（n+1）</code>一样，我们不用关心<code>n+1</code>的计算过程，只需要在更高的层次去思考东西。<br><strong>定义函数</strong><br>用<code>function</code>去定义函数，如：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">abs</span>(<span class="params">x</span>) </span>&#123;   <span class="comment">//function指出这是一个函数定义；函数名称是abs；x是函数的参数，多个参数以                           逗号，分隔</span></span><br><span class="line">    <span class="keyword">if</span> (x &gt;= <span class="number">0</span>) &#123;</span><br><span class="line">        <span class="keyword">return</span> x;</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> -x;  <span class="comment">//请注意，函数体内部的语句在执行时，一旦执行到return时，函数就执行完毕，                           并将结果返回。因此，函数内部通过条件判断和循环可以实现非常复杂的逻辑。</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><strong>第二种定义方式</strong></p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> abs = <span class="function"><span class="keyword">function</span> (<span class="params">x</span>) </span>&#123;   <span class="comment">//在这种方式下，function (x) &#123; ... &#125;是一个匿名函数，它没有函数名。但是，这个匿名函数赋值给了变量abs，所以，通过变量abs就可以调用该函数。上述两种定义完全等价，注意第二种方式按照完整语法需要在函数体末尾加一个分号;，表示赋值语句结束。</span></span><br><span class="line">    <span class="keyword">if</span> (x &gt;= <span class="number">0</span>) &#123;</span><br><span class="line">        <span class="keyword">return</span> x;</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> -x;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<p><strong>调用函数</strong><br>没啥讲的</p>
+<p><strong>高阶函数</strong>  <a href="https://www.liaoxuefeng.com/wiki/1022910821149312/1023021271742944" target="_blank" rel="noopener">https://www.liaoxuefeng.com/wiki/1022910821149312/1023021271742944</a>****<br>map()  reduce()  filter()  sort()  </p>
+<p><code>every()</code>方法可以判断数组的所有元素是否满足测试条件。</p>
+<p><code>find()</code>方法用于查找符合条件的第一个元素，如果找到了，返回这个元素，否则，返回<code>undefined</code>。<br><code>forEach()</code>和<code>map()</code>类似，它也把每个元素依次作用于传入的函数，但不会返回新的数组。<code>forEach()</code>常用于遍历数组，因此，传入的函数不需要返回值。</p>
+<p><strong>箭头函数</strong>（Arrow Function）</p>
+<p><code>x=&gt;x+x</code> 相当于 <code>function(x){return x+x;}</code></p>
+<p>箭头函数相当于匿名函数，并且简化了函数定义。箭头函数有两种格式，一种像上面的，只包含一个表达式，连<code>{ ... }</code>和<code>return</code>都省略掉了。还有一种可以包含多条语句，这时候就不能省略<code>{ ... }</code>和<code>return</code>：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">x =&gt; &#123;</span><br><span class="line">    <span class="keyword">if</span> (x &gt; <span class="number">0</span>) &#123;</span><br><span class="line">        <span class="keyword">return</span> x * x;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">else</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> - x * x;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+</li>
+</ol>
+<p>   如果参数不是一个，就需要用括号<code>()</code>括起来：</p>
+   <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 两个参数:</span></span><br><span class="line">(x, y) =&gt; x * x + y * y</span><br><span class="line">   </span><br><span class="line"><span class="comment">// 无参数:</span></span><br><span class="line">() =&gt; <span class="number">3.14</span></span><br><span class="line">   </span><br><span class="line"><span class="comment">// 可变参数:</span></span><br><span class="line">(x, y, ...rest) =&gt; &#123;</span><br><span class="line">    <span class="keyword">var</span> i, sum = x + y;</span><br><span class="line">    <span class="keyword">for</span> (i=<span class="number">0</span>; i&lt;rest.length; i++) &#123;</span><br><span class="line">        sum += rest[i];</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> sum;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+<p>   如果要返回一个对象，就要注意，如果是单表达式，这么写的话会报错：</p>
+   <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// SyntaxError:</span></span><br><span class="line">x =&gt; &#123; <span class="attr">foo</span>: x &#125;</span><br></pre></td></tr></table></figure>
+
+
+<p>   因为和函数体的<code>{ ... }</code>有语法冲突，所以要改为(用括号将<code>{}</code>包起来)：</p>
+   <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// ok:</span></span><br><span class="line">x =&gt; (&#123; <span class="attr">foo</span>: x &#125;)</span><br></pre></td></tr></table></figure>
+
+
+<ol start="6">
+<li><p><strong>面向对象编程</strong><br>JavaScript的原型链和Java的Class区别就在，它没有“Class”的概念，所有对象都是实例，所谓继承关系不过是把一个对象的原型指向另一个对象而已。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> Student = &#123;</span><br><span class="line">    name: <span class="string">'Robot'</span>,</span><br><span class="line">    height: <span class="number">1.2</span>,</span><br><span class="line">    run: <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">        <span class="built_in">console</span>.log(<span class="keyword">this</span>.name + <span class="string">' is running...'</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br><span class="line">   </span><br><span class="line"><span class="keyword">var</span> xiaoming = &#123;</span><br><span class="line">    name: <span class="string">'小明'</span></span><br><span class="line">&#125;;</span><br><span class="line">   </span><br><span class="line">xiaoming.__proto__ = Student;</span><br></pre></td></tr></table></figure>
+
+<p>注意最后一行代码把<code>xiaoming</code>的原型指向了对象<code>Student</code>，看上去<code>xiaoming</code>仿佛是从<code>Student</code>继承下来的：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">xiaoming.name; <span class="comment">// '小明'</span></span><br><span class="line">xiaoming.run(); <span class="comment">// 小明 is running...</span></span><br></pre></td></tr></table></figure>
+
+<p><code>xiaoming</code>有自己的<code>name</code>属性，但并没有定义<code>run()</code>方法。不过，由于小明是从<code>Student</code>继承而来，只要<code>Student</code>有<code>run()</code>方法，<code>xiaoming</code>也可以调用：</p>
+<p><img src="//huahuahuahe.github.io/2019/07/30/JavaScript学习/F:%5Cblog%5Csource%5Cimages%5Cjavascript_extend.png" alt><br>这时候如果<code>xiaoming.__proto__ = Bird;</code>就不能使用<code>run</code>方法了，因为这时小明的原型已经指向<code>Brid</code>，小明只能调用<code>Bird</code>的方法了。</p>
+<p>⭐⭐强调点，请不要使用<code>.__proto__</code>去指向原型，应该用下面的：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 原型对象:</span></span><br><span class="line"><span class="keyword">var</span> Student = &#123;</span><br><span class="line">    name: <span class="string">'Robot'</span>,</span><br><span class="line">    height: <span class="number">1.2</span>,</span><br><span class="line">    run: <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">        <span class="built_in">console</span>.log(<span class="keyword">this</span>.name + <span class="string">' is running...'</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br><span class="line">   </span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">createStudent</span>(<span class="params">name</span>) </span>&#123;</span><br><span class="line">    <span class="comment">// 基于Student原型创建一个新对象:</span></span><br><span class="line">    <span class="keyword">var</span> s = <span class="built_in">Object</span>.create(Student);</span><br><span class="line">    <span class="comment">// 初始化新对象:</span></span><br><span class="line">    s.name = name;</span><br><span class="line">    <span class="keyword">return</span> s;</span><br><span class="line">&#125;</span><br><span class="line">   </span><br><span class="line"><span class="keyword">var</span> xiaoming = createStudent(<span class="string">'小明'</span>);</span><br><span class="line">xiaoming.run(); <span class="comment">// 小明 is running...</span></span><br><span class="line">xiaoming.__proto__ === Student; <span class="comment">// true</span></span><br></pre></td></tr></table></figure>
+
+
+
+</li>
+</ol>
+<ol start="7">
+<li><p><strong>AJAX</strong><br>AJAX不是JavaScript的规范，它只是一个哥们“发明”的缩写：Asynchronous JavaScript and XML，意思就是用JavaScript执行异步网络请求。<br>AJAX请求是异步执行的，也就是说，要通过回调函数获得响应。</p>
+</li>
+<li><p><strong>jQuery</strong><br><code>$</code>是著名的jQuery符号。实际上，jQuery把所有功能全部封装在一个全局变量<code>jQuery</code>中，而<code>$</code>也是一个合法的变量名，它是变量<code>jQuery</code>的别名：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">window</span>.jQuery; <span class="comment">// jQuery(selector, context)</span></span><br><span class="line"><span class="built_in">window</span>.$; <span class="comment">// jQuery(selector, context)</span></span><br><span class="line">$ === jQuery; <span class="comment">// true</span></span><br><span class="line"><span class="keyword">typeof</span>($); <span class="comment">// 'function'</span></span><br></pre></td></tr></table></figure>
+
+<p><strong>选择器</strong><br>选择器是jQuery的核心。一个选择器写出来类似<code>$(&#39;#dom-id&#39;)</code>。</p>
+</li>
+<li><p>s</p>
+</li>
+</ol>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/JavaScript/" rel="tag"># -JavaScript</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2019/07/08/Spring学习/" rel="prev" title="Spring学习">
+      <i class="fa fa-chevron-left"></i> Spring学习
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2019/08/07/Vue-js学习/" rel="next" title="Vue.js学习">
+      Vue.js学习 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Hetianhan"
+      src="/images/hmbb.gif">
+  <p class="site-author-name" itemprop="name">Hetianhan</p>
+  <div class="site-description" itemprop="description">西柚在读废物研究生，野生程序员，擅长吃喝玩乐</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">40</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">9</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">9</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/HuaHuaHuaHe" title="GitHub → https://github.com/HuaHuaHuaHe" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:tianhan.he@foxmail.com" title="E-Mail → mailto:tianhan.he@foxmail.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://weibo.com/yourname" title="Weibo → https://weibo.com/yourname" rel="noopener" target="_blank"><i class="fab fa-weibo fa-fw"></i>Weibo</a>
+      </span>
+  </div>
+
+
+  <div class="links-of-blogroll motion-element">
+    <div class="links-of-blogroll-title"><i class="fa fa-link fa-fw"></i>
+      友链
+    </div>
+    <ul class="links-of-blogroll-list">
+        <li class="links-of-blogroll-item">
+          <a href="https://chenyifaer.com/tags/" title="https://chenyifaer.com/tags/" rel="noopener" target="_blank">陈一发儿</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="https://repo.huaweicloud.com/java/jdk/" title="https://repo.huaweicloud.com/java/jdk/" rel="noopener" target="_blank">华为镜像</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="http://www.yinfans.me/" title="http://www.yinfans.me/" rel="noopener" target="_blank">yfs(电影资源)</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="http://lightzhan.xyz/" title="http://lightzhan.xyz/" rel="noopener" target="_blank">light教程</a>
+        </li>
+    </ul>
+  </div>
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2023</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Hetianhan</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://pisces.theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a> 强力驱动
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  
+  <script color='0,0,255' opacity='0.5' zIndex='-1' count='99' src="/lib/canvas-nest/canvas-nest.min.js"></script>
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+<script src="/js/utils.js"></script><script src="/js/motion.js"></script>
+<script src="/js/schemes/pisces.js"></script>
+<script src="/js/next-boot.js"></script>
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>

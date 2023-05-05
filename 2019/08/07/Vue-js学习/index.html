@@ -1,0 +1,494 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 3.9.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/ufo.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/ufo16.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/ufo16.png">
+  <link rel="mask-icon" href="/images/ufo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"huahuahuahe.github.io","root":"/","scheme":"Pisces","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta name="description" content="使用JavaScript表达式注意Vue实例的数据作用域作为JavaScript被解析。但是有个限制是：每个绑定都只能包含单个表达式，所以下面的例子都不会生效。">
+<meta name="keywords" content="-Vue">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Vue.js学习">
+<meta property="og:url" content="https://huahuahuahe.github.io/2019/08/07/Vue-js学习/index.html">
+<meta property="og:site_name" content="Hetianhan的博客">
+<meta property="og:description" content="使用JavaScript表达式注意Vue实例的数据作用域作为JavaScript被解析。但是有个限制是：每个绑定都只能包含单个表达式，所以下面的例子都不会生效。">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2021-01-23T18:49:12.599Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Vue.js学习">
+<meta name="twitter:description" content="使用JavaScript表达式注意Vue实例的数据作用域作为JavaScript被解析。但是有个限制是：每个绑定都只能包含单个表达式，所以下面的例子都不会生效。">
+
+<link rel="canonical" href="https://huahuahuahe.github.io/2019/08/07/Vue-js学习/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>Vue.js学习 | Hetianhan的博客</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">Hetianhan的博客</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="user fa-fw"></i>关于我</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="tags fa-fw"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="th fa-fw"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="archive fa-fw"></i>归档</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://huahuahuahe.github.io/2019/08/07/Vue-js学习/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/hmbb.gif">
+      <meta itemprop="name" content="Hetianhan">
+      <meta itemprop="description" content="西柚在读废物研究生，野生程序员，擅长吃喝玩乐">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hetianhan的博客">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Vue.js学习
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2019-08-07 00:00:00" itemprop="dateCreated datePublished" datetime="2019-08-07T00:00:00+08:00">2019-08-07</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2021-01-24 02:49:12" itemprop="dateModified" datetime="2021-01-24T02:49:12+08:00">2021-01-24</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Vue/" itemprop="url" rel="index"><span itemprop="name">-Vue</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <ol>
+<li><p><strong>使用JavaScript表达式</strong><br>注意Vue实例的数据作用域作为JavaScript被解析。但是有个限制是：每个绑定都只能包含<strong>单个表达式</strong>，所以下面的例子都不会生效。</p>
+<a id="more"></a>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">&lt;!-- 流控制也不会生效，请使用三元表达式 --&gt;</span></span><br><span class="line">&#123;&#123; if (ok) &#123; return message &#125; &#125;&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p><strong>指令</strong><br>指令（Directives）是带有<code>v-</code>前缀的特殊特性。指令特性的值预期是<strong>单个JavaScript表达式</strong>（<code>v-for</code>是个例外）。指令的职责是：当表达式的值改变时，将其产生的连带影响，响应式的作用于DOM。回顾我们在介绍中看到的例子：</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">p</span> <span class="attr">v-if</span>=<span class="string">"seen"</span>&gt;</span>现在你看到我了<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>这里，<code>v-if</code> 指令将根据表达式 <code>seen</code> 的值的真假来插入/移除 <code>&lt;p&gt;</code> 元素。</p>
+</li>
+<li><p><strong>参数</strong><br>一些指令可以接受一个“参数”，在指令名称之后以冒号表示。例如：<code>v-bind</code>指令可以用于响应式的更新HTML特性：</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">a</span> <span class="attr">v-bind:href</span>=<span class="string">"url"</span>&gt;</span>...<span class="tag">&lt;/<span class="name">a</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">a</span> <span class="attr">v-on:click</span>=<span class="string">"dosomething"</span>&gt;</span>...<span class="tag">&lt;/<span class="name">a</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>这里的<code>href</code>是参数，告知<code>v-bind</code>指令将该元素的<code>href</code>特性与表达式<code>url</code>的值绑定。</p>
+<p><code>v-on</code>用于监听DOM事件。</p>
+</li>
+<li><p><strong>计算属性&amp;&amp;方法&amp;&amp;侦听属性</strong></p>
+<p><strong>计算属性</strong></p>
+<p>模版内的表达式非常便利，但是设计它们的初衷是用于简单计算的。在模板中放入太多的逻辑会让模板过重且难以维护。所以，对于任何复杂逻辑，都应该使用计算属性。<br><strong>基础例子</strong></p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&lt;div id = <span class="string">"example"</span>&gt;</span><br><span class="line">    &lt;P&gt;&#123;&#123;message&#125;&#125;&lt;<span class="regexp">/P&gt;</span></span><br><span class="line"><span class="regexp">    &lt;P&gt;&#123;&#123;reversedMessage&#125;&#125;&lt;/</span>P&gt;</span><br><span class="line">&lt;<span class="regexp">/div&gt;</span></span><br></pre></td></tr></table></figure>
+
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> vm = <span class="keyword">new</span> Vue(&#123;</span><br><span class="line">	el: <span class="string">'#example'</span>,</span><br><span class="line">	data:&#123;</span><br><span class="line">	   message:<span class="string">'Hello'</span></span><br><span class="line">    &#125;,</span><br><span class="line">    computed:&#123;</span><br><span class="line">	   reversedMessage:funcation()&#123;</span><br><span class="line">		<span class="keyword">return</span> <span class="keyword">this</span>.message.split(<span class="string">''</span>).reverse().join(<span class="string">''</span>)</span><br><span class="line">       &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+
+<p><strong>方法</strong><br>同样的上述效果可以使用<strong>方法</strong>来实现。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">methods:&#123;</span><br><span class="line">    reversedMessage:&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">this</span>.message.split(<span class="string">''</span>).reverse().join(<span class="string">''</span>)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>⭐⭐注意：二者之间的不同点在于：<strong>计算属性</strong>是给予他们的响应式依赖进行缓存的，而<strong>方法</strong>只在响应式依赖发生改变时它们才会重新赋值。</p>
+<p><strong>监听属性</strong></p>
+<p><code>Vue</code>提供了一种更通用的方式来观察和响应<code>Vue</code>实例上的数据变动：侦听属性。当你有一些数据需要随着其它数据变动而变动时，你很容易滥用<code>watch</code>–特别是如果你之前使用过AngularJS。然而，<strong>通常更好的做法是使用计算属性而不是命令式的<code>watch</code>回调</strong>。</p>
+</li>
+<li><p><strong>条件渲染</strong><br><code>v-else</code> 元素必须紧跟在带 <code>v-if</code> 或者 <code>v-else-if</code> 的元素的后面，否则它将不会被识别。<br><code>v-else-if</code>，顾名思义，充当 <code>v-if</code> 的“else-if 块”，可以连续使用。</p>
+</li>
+<li><p><strong>组建基础</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">// 定义一个名为 button-counter 的新组件</span><br><span class="line">Vue.component(&apos;button-counter&apos;, &#123;</span><br><span class="line">  data: function () &#123;</span><br><span class="line">    return &#123;</span><br><span class="line">      count: 0</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;,</span><br><span class="line">  template: &apos;&lt;button v-on:click=&quot;count++&quot;&gt;You clicked me &#123;&#123; count &#125;&#125; times.&lt;/button&gt;&apos;</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+
+<p>上述例子中有一个隐藏点：⭐⭐一个组件的<code>data</code>必须是一个函数。如果没有这个规则，可能就会导致实例之间产生影响。<a href="https://cn.vuejs.org/v2/guide/components.html" target="_blank" rel="noopener">https://cn.vuejs.org/v2/guide/components.html</a><br><strong>通过Prop向子组件传递数据</strong><br>Prop是你可以在组件上注册的一些自定义特性。当一个值传递给一个prop的时候，它就变成了那个组件实例的一个属性。比如说：给博文组件传递一个标题，我们可以用一个<code>props</code>选项将其包含在该组件可接受的prop列表中：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">Vue.component(&apos;blog-post&apos; , &#123;</span><br><span class="line">	props: [&apos;title&apos;],</span><br><span class="line">	template: &apos;&lt;h3&gt;&#123;&#123; title &#125;&#125;&lt;/h3&gt;&apos;</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+
+<p>一个组件可以拥有任意数量的prop，任何值都可以传递给任何prop。</p>
+<p>一个 prop 被注册之后，你就可以像这样把数据作为一个自定义特性传递进来：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&lt;blog-post title=&quot;My journey with Vue&quot;&gt;&lt;/blog-post&gt;</span><br><span class="line">&lt;blog-post title=&quot;Blogging with Vue&quot;&gt;&lt;/blog-post&gt;</span><br><span class="line">&lt;blog-post title=&quot;Why Vue is so fun&quot;&gt;&lt;/blog-post&gt;</span><br></pre></td></tr></table></figure>
+
+
+
+</li>
+</ol>
+<ol start="7">
+<li>s</li>
+</ol>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/Vue/" rel="tag"># -Vue</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2019/07/30/JavaScript学习/" rel="prev" title="JavaScript学习">
+      <i class="fa fa-chevron-left"></i> JavaScript学习
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2019/08/19/axios/" rel="next" title="axios">
+      axios <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Hetianhan"
+      src="/images/hmbb.gif">
+  <p class="site-author-name" itemprop="name">Hetianhan</p>
+  <div class="site-description" itemprop="description">西柚在读废物研究生，野生程序员，擅长吃喝玩乐</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">40</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">9</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">9</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/HuaHuaHuaHe" title="GitHub → https://github.com/HuaHuaHuaHe" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:tianhan.he@foxmail.com" title="E-Mail → mailto:tianhan.he@foxmail.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://weibo.com/yourname" title="Weibo → https://weibo.com/yourname" rel="noopener" target="_blank"><i class="fab fa-weibo fa-fw"></i>Weibo</a>
+      </span>
+  </div>
+
+
+  <div class="links-of-blogroll motion-element">
+    <div class="links-of-blogroll-title"><i class="fa fa-link fa-fw"></i>
+      友链
+    </div>
+    <ul class="links-of-blogroll-list">
+        <li class="links-of-blogroll-item">
+          <a href="https://chenyifaer.com/tags/" title="https://chenyifaer.com/tags/" rel="noopener" target="_blank">陈一发儿</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="https://repo.huaweicloud.com/java/jdk/" title="https://repo.huaweicloud.com/java/jdk/" rel="noopener" target="_blank">华为镜像</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="http://www.yinfans.me/" title="http://www.yinfans.me/" rel="noopener" target="_blank">yfs(电影资源)</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="http://lightzhan.xyz/" title="http://lightzhan.xyz/" rel="noopener" target="_blank">light教程</a>
+        </li>
+    </ul>
+  </div>
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2023</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Hetianhan</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://pisces.theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a> 强力驱动
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  
+  <script color='0,0,255' opacity='0.5' zIndex='-1' count='99' src="/lib/canvas-nest/canvas-nest.min.js"></script>
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+<script src="/js/utils.js"></script><script src="/js/motion.js"></script>
+<script src="/js/schemes/pisces.js"></script>
+<script src="/js/next-boot.js"></script>
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>

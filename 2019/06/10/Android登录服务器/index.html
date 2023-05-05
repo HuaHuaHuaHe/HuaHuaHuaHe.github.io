@@ -1,0 +1,510 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 3.9.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/ufo.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/ufo16.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/ufo16.png">
+  <link rel="mask-icon" href="/images/ufo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"huahuahuahe.github.io","root":"/","scheme":"Pisces","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta name="description" content="Android登录客户端​    PS：现在只实现了注册功能，但是登录功能是一个道理，看完注册应该都会。">
+<meta name="keywords" content="-Android">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Android登录客户端">
+<meta property="og:url" content="https://huahuahuahe.github.io/2019/06/10/Android登录服务器/index.html">
+<meta property="og:site_name" content="Hetianhan的博客">
+<meta property="og:description" content="Android登录客户端​    PS：现在只实现了注册功能，但是登录功能是一个道理，看完注册应该都会。">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="https://huahuahuahe.github.io/2019/06/10/Android登录服务器/register.png">
+<meta property="og:image" content="https://huahuahuahe.github.io/2019/06/10/Android登录服务器/Monitor.png">
+<meta property="og:image" content="https://huahuahuahe.github.io/2019/06/10/Android登录服务器/pro.png">
+<meta property="og:image" content="https://huahuahuahe.github.io/Android%E7%99%BB%E5%BD%95+%E6%9C%8D%E5%8A%A1%E5%99%A8(Tomcat)/Monitor%E8%B0%83%E8%AF%95.png">
+<meta property="og:updated_time" content="2021-03-24T07:28:44.309Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Android登录客户端">
+<meta name="twitter:description" content="Android登录客户端​    PS：现在只实现了注册功能，但是登录功能是一个道理，看完注册应该都会。">
+<meta name="twitter:image" content="https://huahuahuahe.github.io/2019/06/10/Android登录服务器/register.png">
+
+<link rel="canonical" href="https://huahuahuahe.github.io/2019/06/10/Android登录服务器/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>Android登录客户端 | Hetianhan的博客</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">Hetianhan的博客</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="user fa-fw"></i>关于我</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="tags fa-fw"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="th fa-fw"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="archive fa-fw"></i>归档</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://huahuahuahe.github.io/2019/06/10/Android登录服务器/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/hmbb.gif">
+      <meta itemprop="name" content="Hetianhan">
+      <meta itemprop="description" content="西柚在读废物研究生，野生程序员，擅长吃喝玩乐">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hetianhan的博客">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Android登录客户端
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2019-06-10 00:00:00" itemprop="dateCreated datePublished" datetime="2019-06-10T00:00:00+08:00">2019-06-10</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2021-03-24 15:28:44" itemprop="dateModified" datetime="2021-03-24T15:28:44+08:00">2021-03-24</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Android/" itemprop="url" rel="index"><span itemprop="name">-Android</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h3 id="Android登录客户端"><a href="#Android登录客户端" class="headerlink" title="Android登录客户端"></a>Android登录客户端</h3><p>​    PS：现在只实现了注册功能，但是登录功能是一个道理，看完注册应该都会。</p>
+<a id="more"></a>
+
+<h4 id="1、首先搭建登录界面"><a href="#1、首先搭建登录界面" class="headerlink" title="1、首先搭建登录界面"></a>1、首先搭建登录界面</h4><p>插一句：利用<code>inputType</code>属性实现<code>EditText</code>输入一行回车换行。</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">android:inputType="text"</span><br></pre></td></tr></table></figure>
+
+<p><img src="//huahuahuahe.github.io/2019/06/10/Android登录服务器/register.png" alt="注册"></p>
+<p>代码如下所示：</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br></pre></td><td class="code"><pre><span class="line">&lt;LinearLayout xmlns:android=<span class="string">"http://schemas.android.com/apk/res/android"</span></span><br><span class="line">    android:layout_width=<span class="string">"match_parent"</span></span><br><span class="line">    android:layout_height=<span class="string">"match_parent"</span></span><br><span class="line">    android:orientation=<span class="string">"horizontal"</span>&gt;</span><br><span class="line"></span><br><span class="line">    &lt;RelativeLayout</span><br><span class="line">        android:layout_width=<span class="string">"0dp"</span></span><br><span class="line">        android:layout_height=<span class="string">"match_parent"</span></span><br><span class="line">        android:layout_weight="0.15"&gt;&lt;/RelativeLayout&gt;</span><br><span class="line"></span><br><span class="line">    &lt;LinearLayout</span><br><span class="line">        android:layout_width=<span class="string">"0dp"</span></span><br><span class="line">        android:layout_height=<span class="string">"match_parent"</span></span><br><span class="line">        android:layout_weight=<span class="string">"0.7"</span></span><br><span class="line">        android:orientation=<span class="string">"vertical"</span>&gt;</span><br><span class="line"></span><br><span class="line">        &lt;com.example.activity.smartparking.CircleImageView</span><br><span class="line">            android:layout_width=<span class="string">"100dp"</span></span><br><span class="line">            android:layout_height=<span class="string">"100dp"</span></span><br><span class="line">            android:layout_gravity=<span class="string">"center"</span></span><br><span class="line">            android:layout_marginTop=<span class="string">"130dp"</span></span><br><span class="line">            android:src=<span class="string">"@drawable/swpu"</span>/&gt;</span><br><span class="line"></span><br><span class="line">        &lt;LinearLayout</span><br><span class="line">            android:orientation=<span class="string">"horizontal"</span></span><br><span class="line">            android:layout_width=<span class="string">"match_parent"</span></span><br><span class="line">            android:layout_height=<span class="string">"60dp"</span>&gt;</span><br><span class="line">            &lt;TextView</span><br><span class="line">                android:layout_width=<span class="string">"wrap_content"</span></span><br><span class="line">                android:layout_height=<span class="string">"wrap_content"</span></span><br><span class="line">                android:layout_gravity=<span class="string">"center"</span></span><br><span class="line">                android:textSize=<span class="string">"18sp"</span></span><br><span class="line">                android:text=<span class="string">"账号"</span>/&gt;</span><br><span class="line">            &lt;EditText</span><br><span class="line">                android:id=<span class="string">"@+id/account_r"</span></span><br><span class="line">                android:layout_width=<span class="string">"0dp"</span></span><br><span class="line">                android:layout_height=<span class="string">"wrap_content"</span></span><br><span class="line">                android:layout_weight=<span class="string">"1"</span></span><br><span class="line">                android:hint=<span class="string">"请输入账号"</span></span><br><span class="line">                android:maxLength=<span class="string">"10"</span></span><br><span class="line">                android:layout_gravity=<span class="string">"center_vertical"</span>/&gt;</span><br><span class="line">        &lt;/LinearLayout&gt;</span><br><span class="line"></span><br><span class="line">        &lt;LinearLayout</span><br><span class="line">            android:orientation=<span class="string">"horizontal"</span></span><br><span class="line">            android:layout_width=<span class="string">"match_parent"</span></span><br><span class="line">            android:layout_height=<span class="string">"60dp"</span>&gt;</span><br><span class="line">            &lt;TextView</span><br><span class="line">                android:layout_width=<span class="string">"wrap_content"</span></span><br><span class="line">                android:layout_height=<span class="string">"wrap_content"</span></span><br><span class="line">                android:layout_gravity=<span class="string">"center"</span></span><br><span class="line">                android:textSize=<span class="string">"18sp"</span></span><br><span class="line">                android:text=<span class="string">"密码"</span>/&gt;</span><br><span class="line">            &lt;EditText</span><br><span class="line">                android:id=<span class="string">"@+id/password_r"</span></span><br><span class="line">                android:layout_width=<span class="string">"0dp"</span></span><br><span class="line">                android:layout_height=<span class="string">"wrap_content"</span></span><br><span class="line">                android:layout_weight=<span class="string">"1"</span></span><br><span class="line">                android:hint=<span class="string">"请输入密码"</span></span><br><span class="line">                android:maxLength=<span class="string">"10"</span></span><br><span class="line">                android:layout_gravity=<span class="string">"center_vertical"</span></span><br><span class="line">                android:inputType=<span class="string">"textPassword"</span>/&gt;</span><br><span class="line">        &lt;/LinearLayout&gt;</span><br><span class="line"></span><br><span class="line">        &lt;Button</span><br><span class="line">            android:layout_gravity=<span class="string">"center"</span></span><br><span class="line">            android:background=<span class="string">"@color/buttonLogin"</span></span><br><span class="line">            android:id=<span class="string">"@+id/register_r"</span></span><br><span class="line">            android:layout_width=<span class="string">"wrap_content"</span></span><br><span class="line">            android:layout_height=<span class="string">"wrap_content"</span></span><br><span class="line">            android:text=<span class="string">"注册"</span>/&gt;</span><br><span class="line"></span><br><span class="line">    &lt;/LinearLayout&gt;</span><br><span class="line"></span><br><span class="line">    &lt;RelativeLayout</span><br><span class="line">        android:layout_width=<span class="string">"0dp"</span></span><br><span class="line">        android:layout_height=<span class="string">"match_parent"</span></span><br><span class="line">        android:layout_weight="0.15"&gt;&lt;/RelativeLayout&gt;</span><br><span class="line"></span><br><span class="line">&lt;/LinearLayout&gt;</span><br></pre></td></tr></table></figure>
+
+<h4 id="2、信息传输"><a href="#2、信息传输" class="headerlink" title="2、信息传输"></a>2、信息传输</h4><p>​    搭建好了界面之后，就需要解决数据传输的问题。我们需要将输入的账号以及密码信息传输到服务器。</p>
+<p>​    不要忘了加权限！！！（用模拟器的选手本地不要用localhost，请使用10.0.0.2）</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;uses-permission android:name=<span class="string">"android.permission.INTERNET"</span> /&gt;</span><br></pre></td></tr></table></figure>
+
+<p>​    信息传输我们使用OKhttp，要使用OKhttp，我们需要导入：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">implementation &apos;com.squareup.okhttp3:okhttp:3.2.0&apos;</span><br></pre></td></tr></table></figure>
+
+<p>​    由于OKhttp还是比较底层的，我们还是将OKhttp进行简单的封装比较好用。这里我用了一个github别人封装好的库（忘了是哪个大哥的了，忏悔一下），源码在文末。</p>
+<p>​    然后我们就可以进行数据传输了，我们在Register.Activity中操作。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> android.content.Intent;</span><br><span class="line"><span class="keyword">import</span> android.os.Looper;</span><br><span class="line"><span class="keyword">import</span> android.support.v7.app.AppCompatActivity;</span><br><span class="line"><span class="keyword">import</span> android.os.Bundle;</span><br><span class="line"><span class="keyword">import</span> android.util.Log;</span><br><span class="line"><span class="keyword">import</span> android.view.View;</span><br><span class="line"><span class="keyword">import</span> android.widget.Button;</span><br><span class="line"><span class="keyword">import</span> android.widget.EditText;</span><br><span class="line"><span class="keyword">import</span> android.widget.Toast;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> com.google.gson.Gson;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> java.io.IOException;</span><br><span class="line"><span class="keyword">import</span> java.util.HashMap;</span><br><span class="line"><span class="keyword">import</span> java.util.Map;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> okhttp3.Call;</span><br><span class="line"><span class="keyword">import</span> okhttp3.Response;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">RegisterActivity</span> <span class="keyword">extends</span> <span class="title">AppCompatActivity</span> <span class="keyword">implements</span> <span class="title">View</span>.<span class="title">OnClickListener</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> EditText account,password;</span><br><span class="line">    <span class="keyword">private</span> Button register;</span><br><span class="line">    <span class="keyword">private</span> String str1,str2;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> String url = <span class="string">"http://10.24.22.247:80/SmartParking/reg1"</span>;</span><br><span class="line">    <span class="keyword">private</span> Map&lt;String,String&gt; paramsMap = <span class="keyword">null</span>;</span><br><span class="line">    <span class="keyword">private</span> CallBackUtil callBackUtil = <span class="keyword">null</span>;</span><br><span class="line">    <span class="keyword">private</span> String jsonstr = <span class="keyword">null</span>;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">protected</span> <span class="keyword">void</span> <span class="title">onCreate</span><span class="params">(Bundle savedInstanceState)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">super</span>.onCreate(savedInstanceState);</span><br><span class="line">        setContentView(R.layout.activity_register);</span><br><span class="line">        init();</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">        <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onClick</span><span class="params">(View v)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">switch</span>(v.getId())&#123;</span><br><span class="line">            <span class="keyword">case</span> R.id.register_r:</span><br><span class="line">                str1 = account.getText().toString();</span><br><span class="line">                str2 = password.getText().toString();</span><br><span class="line">                <span class="comment">//下面这就是OKhttp的操作了，首先在rgister_f中定义好我们需要东西，最后用别人封装好的一句OkhttpUtil.okHttpPostJson(url,jsonstr,callBackUtil)就可以发送OKhttp请求了。</span></span><br><span class="line">                register_f();</span><br><span class="line">                OkhttpUtil.okHttpPostJson(url,jsonstr,callBackUtil);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">init</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        account = (EditText)findViewById(R.id.account_r);</span><br><span class="line">        password = (EditText)findViewById(R.id.password_r);</span><br><span class="line">        register = (Button)findViewById(R.id.register_r);</span><br><span class="line">        register.setOnClickListener(<span class="keyword">this</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">private</span> Object <span class="title">register_f</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="comment">//我们装备传输的数据是Json格式的，json数据写的方法有几种，我是通过先写Map数组，在直接将HashMap转换为json数据。</span></span><br><span class="line">        paramsMap = <span class="keyword">new</span> HashMap&lt;String, String&gt;();</span><br><span class="line">        paramsMap.put(<span class="string">"uname"</span>,str1);</span><br><span class="line">        paramsMap.put(<span class="string">"pwd"</span>,str2);</span><br><span class="line">        Gson gson = <span class="keyword">new</span> Gson();</span><br><span class="line">        jsonstr = gson.toJson(paramsMap);</span><br><span class="line">        <span class="comment">//callBackUtil是别人封装好的OKhttp库</span></span><br><span class="line">        callBackUtil = <span class="keyword">new</span> CallBackUtil() &#123;</span><br><span class="line">            <span class="meta">@Override</span></span><br><span class="line">            <span class="function"><span class="keyword">public</span> Object <span class="title">onParseResponse</span><span class="params">(Call call, Response response)</span> <span class="keyword">throws</span> IOException </span>&#123;</span><br><span class="line">                String resp = response.body().string();</span><br><span class="line">                <span class="keyword">if</span>(resp.equals(<span class="string">"success"</span>))&#123;</span><br><span class="line">                    Looper.prepare();</span><br><span class="line">                    Toast.makeText(RegisterActivity.<span class="keyword">this</span>, <span class="string">"注册成功,请登录"</span>, Toast.LENGTH_SHORT).show();</span><br><span class="line">                    Intent intent = <span class="keyword">new</span> Intent(RegisterActivity.<span class="keyword">this</span>,Login.class);</span><br><span class="line">                    startActivity(intent);</span><br><span class="line">                    Looper.loop();</span><br><span class="line">                    <span class="keyword">return</span> <span class="keyword">null</span>;</span><br><span class="line">                &#125;<span class="keyword">else</span> <span class="keyword">if</span> (resp.equals(<span class="string">"failure"</span>))&#123;</span><br><span class="line">                    Looper.prepare();</span><br><span class="line">                    Toast.makeText(RegisterActivity.<span class="keyword">this</span>, <span class="string">"注册失败，请重新注册"</span>, Toast.LENGTH_SHORT).show();</span><br><span class="line">                    Looper.loop();</span><br><span class="line">                    <span class="keyword">return</span> <span class="keyword">null</span>;</span><br><span class="line">                &#125;</span><br><span class="line">                <span class="keyword">return</span> <span class="keyword">null</span>;</span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">            <span class="meta">@Override</span></span><br><span class="line">            <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onFailure</span><span class="params">(Call call, Exception e)</span> </span>&#123;</span><br><span class="line">                Looper.prepare();</span><br><span class="line">                Toast.makeText(RegisterActivity.<span class="keyword">this</span>, <span class="string">"注册失败"</span>, Toast.LENGTH_SHORT).show();</span><br><span class="line">                Looper.loop();</span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">            <span class="meta">@Override</span></span><br><span class="line">            <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onResponse</span><span class="params">(Object response)</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">            &#125;</span><br><span class="line">        &#125;;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">null</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h4 id="3、服务器搭建"><a href="#3、服务器搭建" class="headerlink" title="3、服务器搭建"></a>3、服务器搭建</h4><p>​    我是在本机用Tomcat服务器测试的，关于Tomcat服务器的测试，我就不在这里说了，网上教程很多。</p>
+<p>​    在搭建好了Tomcat服务器之后，我们先提一个小东西，Eclipse的TCP/IP Monitor，这个东西是监听端口数据的，我们可以用它来监听Servlet的请求数据(request)和响应数据(response)。</p>
+<p>​    TCP/IP Monitor打开方式：进入菜单 Window-&gt;Show View-&gt;Other，在弹出框中选择 TCP/IP Monitor 项。</p>
+<p>​    空白处右键选择properties，点击 Add 添加一个新的监控。</p>
+<p><img src="//huahuahuahe.github.io/2019/06/10/Android登录服务器/Monitor.png" alt="监控"></p>
+<p>​                                                    <img src="//huahuahuahe.github.io/2019/06/10/Android登录服务器/pro.png" alt="监控设置"></p>
+<p>⭐⭐设置各项属性，其中各属性含义如下：</p>
+<ul>
+<li><p>Local monitoring port：本地的监控端口，此监控端口必须未被使用；且设置之后，客户端程序须修改为向此端口发送请求，而不是之前的服务器接收的端口；</p>
+</li>
+<li><p>Host name：服务器地址（这里是本机）；</p>
+</li>
+<li><p>Port：服务器端口；</p>
+</li>
+<li><p>Type：HTTP/HTTPS，根据实际使用协议选择；</p>
+</li>
+<li><p>Timeout：monitor在尝试重连之前的等待时间。</p>
+<p>简单来讲，假设你开始访问的地址是：<a href="http://10.24.22.247:8080/SmartParking/reg1，现在你就需要将你之前设置的端口改为上面的Local" target="_blank" rel="noopener">http://10.24.22.247:8080/SmartParking/reg1，现在你就需要将你之前设置的端口改为上面的Local</a> monitoring port端口，即改为<a href="http://10.24.22.247:80/SmartParking/reg1，TCP/IP" target="_blank" rel="noopener">http://10.24.22.247:80/SmartParking/reg1，TCP/IP</a> Monitor会将发往端口80的数据转发给你实际用到的端口8080。</p>
+<h4 id="4、服务器处理请求-request-及返回-response"><a href="#4、服务器处理请求-request-及返回-response" class="headerlink" title="4、服务器处理请求(request)及返回(response)"></a>4、服务器处理请求(request)及返回(response)</h4><p>​    写这个之前我想先说说服务起的相关知识，前文所提到的访问地址，如<a href="http://10.24.22.247:8080/SmartParking/reg1之类的信息具体指什么呢？" target="_blank" rel="noopener">http://10.24.22.247:8080/SmartParking/reg1之类的信息具体指什么呢？</a></p>
+<p>​    10.24.22.247 是你服务器的ip地址(这里提一句，如果你是在模拟器上运行的话，这里不能填localhost，需要你电脑在公网下面的私网ip(cmd输入ipconfig找到ipv4就是你的ip了，校园网的话可能一段时间会换，自己注意下)。</p>
+<p>​    8080就是端口号了，我们电脑的端口很多，只要用不被占用的就行了。</p>
+<p>​    SmartParking/reg1就是你的SmartParking工程下的某一个servlet，我们通过reg1将真实地址隐藏了(我这里学的不是很明白，懂得应该都能懂，没有学过servlet的建议去B站找找servlet的资源听一下，很简单的，听两节servlet基础就行了)。</p>
+<p>​    反正经过上面的东东，我们就可以访问到我们自己的服务器资源了。</p>
+<p>​    先把代码列出来（需要自己导入JDBK数据库操作的jar包），简单说一下：就是客户端通过OKhttp发送数据给服务器（这一步就是请求request），服务器如果成功接受了数据，就会首先分析该请求是get还是post，然后在根据他的类型执行不同的方法，get请求执行doGet方法，post请求执行doPost方法（我上传的是post请求，所以只对doPost方法进行了编写）。最后执行完相应的方法之后就会返回响应给客户端，响应数据的写入也在doGet和doPost方法中写，核心内容方法是getWriter().write()。</p>
+<p>​    代码中的DBHandle是封装的连接数据库以及curd方法。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> java.io.BufferedReader;</span><br><span class="line"><span class="keyword">import</span> java.io.IOException;</span><br><span class="line"><span class="keyword">import</span> java.io.InputStreamReader;</span><br><span class="line"><span class="keyword">import</span> java.io.PrintWriter;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> javax.servlet.ServletException;</span><br><span class="line"><span class="keyword">import</span> javax.servlet.ServletInputStream;</span><br><span class="line"><span class="keyword">import</span> javax.servlet.http.HttpServlet;</span><br><span class="line"><span class="keyword">import</span> javax.servlet.http.HttpServletRequest;</span><br><span class="line"><span class="keyword">import</span> javax.servlet.http.HttpServletResponse;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> com.google.gson.Gson;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">RegisterServlet</span> <span class="keyword">extends</span> <span class="title">HttpServlet</span> </span>&#123;</span><br><span class="line">	</span><br><span class="line">	<span class="meta">@Override</span></span><br><span class="line">	<span class="function"><span class="keyword">protected</span> <span class="keyword">void</span> <span class="title">service</span><span class="params">(HttpServletRequest req, HttpServletResponse resp)</span> <span class="keyword">throws</span> ServletException, IOException </span>&#123;</span><br><span class="line">		<span class="comment">// TODO Auto-generated method stub</span></span><br><span class="line">		<span class="keyword">super</span>.service(req, resp);</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">doGet</span><span class="params">(HttpServletRequest request, HttpServletResponse response)</span></span></span><br><span class="line"><span class="function">			<span class="keyword">throws</span> ServletException, IOException </span>&#123;</span><br><span class="line">		<span class="keyword">this</span>.doPost(request, response);</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">doPost</span><span class="params">(HttpServletRequest req, HttpServletResponse resp)</span></span></span><br><span class="line"><span class="function">			<span class="keyword">throws</span> ServletException, IOException </span>&#123;</span><br><span class="line">		resp.setContentType(<span class="string">"text/html"</span>);</span><br><span class="line">		resp.setCharacterEncoding(<span class="string">"utf-8"</span>);</span><br><span class="line">		resp.addIntHeader(<span class="string">"ycy"</span>, <span class="number">101</span>);</span><br><span class="line">		System.out.println(req.getRequestURI());</span><br><span class="line">		BufferedReader br = <span class="keyword">new</span> BufferedReader(<span class="keyword">new</span> InputStreamReader((ServletInputStream)req.getInputStream(), <span class="string">"utf-8"</span>));</span><br><span class="line">		StringBuffer sb = <span class="keyword">new</span> StringBuffer(<span class="string">""</span>);</span><br><span class="line">		String temp,json;</span><br><span class="line">		<span class="keyword">while</span> ((temp = br.readLine()) != <span class="keyword">null</span>) &#123;</span><br><span class="line">			sb.append(temp);</span><br><span class="line">			&#125;</span><br><span class="line">			br.close();</span><br><span class="line">		json = sb.toString();</span><br><span class="line">		Gson gson = <span class="keyword">new</span> Gson();</span><br><span class="line">		User user = gson.fromJson(json, User.class);</span><br><span class="line">		String uname = user.getUname();</span><br><span class="line">		String pwd = user.getPwd();</span><br><span class="line">		<span class="keyword">boolean</span> u_exit = <span class="keyword">false</span>;</span><br><span class="line">		u_exit = exit(uname,u_exit);</span><br><span class="line">		<span class="keyword">if</span>(u_exit) &#123;</span><br><span class="line">			insert(uname, pwd);</span><br><span class="line">			resp.getWriter().write(<span class="string">"success"</span>);</span><br><span class="line">		&#125;<span class="keyword">else</span> &#123;</span><br><span class="line">			resp.getWriter().write(<span class="string">"failure"</span>);</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="function"><span class="keyword">private</span> <span class="keyword">boolean</span> <span class="title">exit</span><span class="params">(String uname,<span class="keyword">boolean</span> b_exit)</span> </span>&#123;</span><br><span class="line">		DBHandler db_exit = <span class="keyword">new</span> DBHandler();</span><br><span class="line">		String sql_select = <span class="string">"select *from user where username=?"</span>;</span><br><span class="line">		String a_exit = db_exit.query(sql_select, <span class="keyword">new</span> String[] &#123;uname&#125;);</span><br><span class="line">		</span><br><span class="line"><span class="comment">/*		//判断获得的数据库数据中的username所在的索引区间，username是第一行数据，所有只用判断第一个分节符*所在位置即可</span></span><br><span class="line"><span class="comment">		int a = a_exit.indexOf("*");</span></span><br><span class="line"><span class="comment">		//如果a是-1，表明数据库中没有该username注册，如果不是-1；返回该索引值前的字符串</span></span><br><span class="line"><span class="comment">		if(a != -1) &#123;</span></span><br><span class="line"><span class="comment">			b_exit = a_exit.substring(0,a);</span></span><br><span class="line"><span class="comment">			return b_exit;</span></span><br><span class="line"><span class="comment">		&#125;else &#123;</span></span><br><span class="line"><span class="comment">			return null;</span></span><br><span class="line"><span class="comment">		&#125;*/</span></span><br><span class="line">		</span><br><span class="line"><span class="comment">/*		//上面这个方法感觉很不方便，是否可以这样，通过索引值是否为-1就可以判断啊，如果是-1则不存在，不然就是存在的，没必要进行其他操作。</span></span><br><span class="line"><span class="comment">		int a = a_exit.indexOf("*");</span></span><br><span class="line"><span class="comment">		//如果a是-1，表明数据库中没有该username账号注册,b_exit为真；如果不是-1，则证明数据库中已经注册过该账号</span></span><br><span class="line"><span class="comment">		if(a != -1) &#123;</span></span><br><span class="line"><span class="comment">			b_exit = false;</span></span><br><span class="line"><span class="comment">			return b_exit;</span></span><br><span class="line"><span class="comment">		&#125;else &#123;</span></span><br><span class="line"><span class="comment">			b_exit = true;</span></span><br><span class="line"><span class="comment">			return b_exit;</span></span><br><span class="line"><span class="comment">		&#125;*/</span></span><br><span class="line">		</span><br><span class="line">		<span class="comment">//上面这个方法也不行，我们直接判断a_exit是否为空不就好了吗</span></span><br><span class="line">		<span class="comment">//如果a是-1，表明数据库中没有该username账号注册,b_exit为真；如果不是-1，则证明数据库中已经注册过该账号</span></span><br><span class="line">		<span class="keyword">if</span>(a_exit.isEmpty()) &#123;</span><br><span class="line">			b_exit = <span class="keyword">true</span>;</span><br><span class="line">			<span class="keyword">return</span> b_exit;</span><br><span class="line">		&#125;<span class="keyword">else</span> &#123;</span><br><span class="line">			b_exit = <span class="keyword">false</span>;</span><br><span class="line">			<span class="keyword">return</span> b_exit;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	<span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">insert</span><span class="params">(String uname, String pwd)</span> </span>&#123;</span><br><span class="line">		DBHandler db_insert = <span class="keyword">new</span> DBHandler();</span><br><span class="line">		String sql = <span class="string">"insert into user(username,pwd) values (?,?)"</span>;</span><br><span class="line">		db_insert.insert(sql, <span class="keyword">new</span> String[] &#123;uname, pwd&#125;);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+</li>
+</ul>
+<p>​    </p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> java.sql.Connection;</span><br><span class="line"><span class="keyword">import</span> java.sql.DriverManager;</span><br><span class="line"><span class="keyword">import</span> java.sql.PreparedStatement;</span><br><span class="line"><span class="keyword">import</span> java.sql.ResultSet;</span><br><span class="line"><span class="keyword">import</span> java.sql.ResultSetMetaData;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> javax.servlet.http.HttpServlet;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">DBHandler</span> </span>&#123;</span><br><span class="line">	String url = <span class="string">"jdbc:mysql://localhost/parking"</span>;</span><br><span class="line">	String user=<span class="string">"root"</span>;</span><br><span class="line">	String pwd=<span class="string">"Qwert592665"</span>;</span><br><span class="line">	<span class="keyword">private</span> Connection conn;</span><br><span class="line">	<span class="keyword">private</span> PreparedStatement ps;</span><br><span class="line">	<span class="keyword">private</span> ResultSet rs;</span><br><span class="line">	<span class="function"><span class="keyword">public</span> Connection <span class="title">getConn</span><span class="params">()</span></span>&#123;</span><br><span class="line">		<span class="keyword">try</span>&#123;</span><br><span class="line">			Class.forName(<span class="string">"com.mysql.jdbc.Driver"</span>);</span><br><span class="line">			conn = DriverManager.getConnection(url, user, pwd);</span><br><span class="line">		&#125;<span class="keyword">catch</span>(Exception ex)&#123;</span><br><span class="line">			ex.printStackTrace();</span><br><span class="line">		&#125;		</span><br><span class="line">		<span class="keyword">return</span> conn;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="function"><span class="keyword">public</span> String <span class="title">query</span><span class="params">(String sql,String[] args)</span></span>&#123;</span><br><span class="line">		String result=<span class="string">""</span>;</span><br><span class="line">		<span class="keyword">try</span>&#123;</span><br><span class="line">			conn=getConn();</span><br><span class="line">			System.out.println(sql);</span><br><span class="line">			ps=conn.prepareStatement(sql);</span><br><span class="line">			<span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;args.length;i++)&#123;</span><br><span class="line">				ps.setString(i+<span class="number">1</span>, args[i]);</span><br><span class="line">			&#125;			</span><br><span class="line">			rs=ps.executeQuery();</span><br><span class="line">			ResultSetMetaData rsmd = rs.getMetaData();			</span><br><span class="line">			<span class="keyword">int</span> count=rsmd.getColumnCount();</span><br><span class="line">			System.out.println(count);</span><br><span class="line">			<span class="keyword">while</span> (rs.next()) &#123;</span><br><span class="line">				<span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">1</span>;i&lt;=count;i++)&#123;</span><br><span class="line">					result+=rs.getString(i)+<span class="string">"*"</span>;</span><br><span class="line">				&#125;				</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;<span class="keyword">catch</span> (Exception ex) &#123;</span><br><span class="line">			ex.printStackTrace();</span><br><span class="line">		&#125;		</span><br><span class="line">		<span class="keyword">return</span> result;		</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">insert</span><span class="params">(String sql,String[] args)</span></span>&#123;</span><br><span class="line">		<span class="keyword">boolean</span> flag=<span class="keyword">false</span>;</span><br><span class="line">		<span class="keyword">try</span>&#123;</span><br><span class="line">			conn=getConn();</span><br><span class="line">			System.out.println(sql);</span><br><span class="line">			ps=conn.prepareStatement(sql);</span><br><span class="line">			<span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;args.length;i++)&#123;</span><br><span class="line">				ps.setString(i+<span class="number">1</span>, args[i]);</span><br><span class="line">			&#125;			</span><br><span class="line">			<span class="keyword">int</span> i=ps.executeUpdate();</span><br><span class="line">			System.out.println(i);</span><br><span class="line">			<span class="keyword">if</span>(i==<span class="number">1</span>)&#123;</span><br><span class="line">				flag=<span class="keyword">true</span>;</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;<span class="keyword">catch</span> (Exception ex) &#123;</span><br><span class="line">			ex.printStackTrace();</span><br><span class="line">		&#125;		</span><br><span class="line">		<span class="keyword">return</span> flag;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">checkUser</span><span class="params">(String sql,String[] args)</span></span>&#123;</span><br><span class="line">		<span class="keyword">boolean</span> flag=<span class="keyword">false</span>;</span><br><span class="line">		<span class="keyword">try</span>&#123;</span><br><span class="line">			conn=getConn();</span><br><span class="line">			ps=conn.prepareStatement(sql);</span><br><span class="line">			<span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;args.length;i++)&#123;</span><br><span class="line">				ps.setString(i+<span class="number">1</span>, args[i]);</span><br><span class="line">			&#125;			</span><br><span class="line">			rs=ps.executeQuery();</span><br><span class="line">			<span class="keyword">if</span>(rs.next())&#123;</span><br><span class="line">				flag=<span class="keyword">true</span>;</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;<span class="keyword">catch</span> (Exception ex) &#123;</span><br><span class="line">			ex.printStackTrace();</span><br><span class="line">		&#125;		</span><br><span class="line">		<span class="keyword">return</span> flag;</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span></span>&#123;</span><br><span class="line">		DBHandler dbh=<span class="keyword">new</span> DBHandler();</span><br><span class="line">		String result=dbh.query(</span><br><span class="line">				<span class="string">"select * from book where book_name like ? or book_author like ?"</span>,</span><br><span class="line">				<span class="keyword">new</span> String[] &#123; <span class="string">"wandou"</span>, <span class="string">"123456"</span> &#125;);</span><br><span class="line">		System.out.println(result);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h4 id="5、最终调试"><a href="#5、最终调试" class="headerlink" title="5、最终调试"></a>5、最终调试</h4><p>​     调试过程遇到很多问题就要自己解决了，但是首先应该明白一点就是要用TCP/IP Monitor来看自己的数据对不对。</p>
+<p><img src="/Android%E7%99%BB%E5%BD%95+%E6%9C%8D%E5%8A%A1%E5%99%A8(Tomcat)/Monitor%E8%B0%83%E8%AF%95.png" alt="调试"></p>
+<p>​     左下角和右下角分别是你的request和response，里面有你的响应头和数据，首先分析自己发送的东西有没有问题，最后写东西。</p>
+<h4 id="6、源码"><a href="#6、源码" class="headerlink" title="6、源码"></a>6、源码</h4><p>​    项目地址：<a href="https://github.com/HuaHuaHuaHe/LoginTest" target="_blank" rel="noopener">https://github.com/HuaHuaHuaHe/LoginTest</a></p>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/Android/" rel="tag"># -Android</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2019/06/07/android问题总结/" rel="prev" title="Android问题总结">
+      <i class="fa fa-chevron-left"></i> Android问题总结
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2019/07/08/润叶/" rel="next" title="平凡的世界有感">
+      平凡的世界有感 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#Android登录客户端"><span class="nav-number">1.</span> <span class="nav-text">Android登录客户端</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1、首先搭建登录界面"><span class="nav-number">1.1.</span> <span class="nav-text">1、首先搭建登录界面</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2、信息传输"><span class="nav-number">1.2.</span> <span class="nav-text">2、信息传输</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3、服务器搭建"><span class="nav-number">1.3.</span> <span class="nav-text">3、服务器搭建</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#4、服务器处理请求-request-及返回-response"><span class="nav-number">1.4.</span> <span class="nav-text">4、服务器处理请求(request)及返回(response)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#5、最终调试"><span class="nav-number">1.5.</span> <span class="nav-text">5、最终调试</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#6、源码"><span class="nav-number">1.6.</span> <span class="nav-text">6、源码</span></a></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Hetianhan"
+      src="/images/hmbb.gif">
+  <p class="site-author-name" itemprop="name">Hetianhan</p>
+  <div class="site-description" itemprop="description">西柚在读废物研究生，野生程序员，擅长吃喝玩乐</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">40</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">9</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">9</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/HuaHuaHuaHe" title="GitHub → https://github.com/HuaHuaHuaHe" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:tianhan.he@foxmail.com" title="E-Mail → mailto:tianhan.he@foxmail.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://weibo.com/yourname" title="Weibo → https://weibo.com/yourname" rel="noopener" target="_blank"><i class="fab fa-weibo fa-fw"></i>Weibo</a>
+      </span>
+  </div>
+
+
+  <div class="links-of-blogroll motion-element">
+    <div class="links-of-blogroll-title"><i class="fa fa-link fa-fw"></i>
+      友链
+    </div>
+    <ul class="links-of-blogroll-list">
+        <li class="links-of-blogroll-item">
+          <a href="https://chenyifaer.com/tags/" title="https://chenyifaer.com/tags/" rel="noopener" target="_blank">陈一发儿</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="https://repo.huaweicloud.com/java/jdk/" title="https://repo.huaweicloud.com/java/jdk/" rel="noopener" target="_blank">华为镜像</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="http://www.yinfans.me/" title="http://www.yinfans.me/" rel="noopener" target="_blank">yfs(电影资源)</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="http://lightzhan.xyz/" title="http://lightzhan.xyz/" rel="noopener" target="_blank">light教程</a>
+        </li>
+    </ul>
+  </div>
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2023</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Hetianhan</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://pisces.theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a> 强力驱动
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  
+  <script color='0,0,255' opacity='0.5' zIndex='-1' count='99' src="/lib/canvas-nest/canvas-nest.min.js"></script>
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+<script src="/js/utils.js"></script><script src="/js/motion.js"></script>
+<script src="/js/schemes/pisces.js"></script>
+<script src="/js/next-boot.js"></script>
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>

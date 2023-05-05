@@ -1,0 +1,551 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 3.9.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/ufo.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/ufo16.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/ufo16.png">
+  <link rel="mask-icon" href="/images/ufo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"huahuahuahe.github.io","root":"/","scheme":"Pisces","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta name="description" content="Linux代码指令pwd  (print work directory)  显示目前所在目录 mkdir  (make directory)  创建一个新的目录 mkdir -p (帮助你直接将所需要的目录全部递归创建) rmdir  (remove directory)  删除一个空目录 cp  (cp file) 复制文件或目录 rm (remove) 移除文件或目录 mv  (move fi">
+<meta name="keywords" content="-Linux">
+<meta property="og:type" content="article">
+<meta property="og:title" content="centOs命令总结">
+<meta property="og:url" content="https://huahuahuahe.github.io/2019/05/10/Linux命令总结/index.html">
+<meta property="og:site_name" content="Hetianhan的博客">
+<meta property="og:description" content="Linux代码指令pwd  (print work directory)  显示目前所在目录 mkdir  (make directory)  创建一个新的目录 mkdir -p (帮助你直接将所需要的目录全部递归创建) rmdir  (remove directory)  删除一个空目录 cp  (cp file) 复制文件或目录 rm (remove) 移除文件或目录 mv  (move fi">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="https://huahuahuahe.github.io/images/tomacat_version_change.png">
+<meta property="og:updated_time" content="2021-03-26T11:22:22.150Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="centOs命令总结">
+<meta name="twitter:description" content="Linux代码指令pwd  (print work directory)  显示目前所在目录 mkdir  (make directory)  创建一个新的目录 mkdir -p (帮助你直接将所需要的目录全部递归创建) rmdir  (remove directory)  删除一个空目录 cp  (cp file) 复制文件或目录 rm (remove) 移除文件或目录 mv  (move fi">
+<meta name="twitter:image" content="https://huahuahuahe.github.io/images/tomacat_version_change.png">
+
+<link rel="canonical" href="https://huahuahuahe.github.io/2019/05/10/Linux命令总结/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>centOs命令总结 | Hetianhan的博客</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">Hetianhan的博客</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="user fa-fw"></i>关于我</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="tags fa-fw"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="th fa-fw"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="archive fa-fw"></i>归档</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://huahuahuahe.github.io/2019/05/10/Linux命令总结/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/hmbb.gif">
+      <meta itemprop="name" content="Hetianhan">
+      <meta itemprop="description" content="西柚在读废物研究生，野生程序员，擅长吃喝玩乐">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hetianhan的博客">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          centOs命令总结
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2019-05-10 00:00:00" itemprop="dateCreated datePublished" datetime="2019-05-10T00:00:00+08:00">2019-05-10</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2021-03-26 19:22:22" itemprop="dateModified" datetime="2021-03-26T19:22:22+08:00">2021-03-26</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Linux/" itemprop="url" rel="index"><span itemprop="name">-Linux</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h4 id="Linux代码指令"><a href="#Linux代码指令" class="headerlink" title="Linux代码指令"></a>Linux代码指令</h4><p>pwd  (print work directory)  显示目前所在目录</p>
+<p>mkdir  (make directory)  创建一个新的目录</p>
+<p>mkdir -p (帮助你直接将所需要的目录全部递归创建)</p>
+<p>rmdir  (remove directory)  删除一个空目录</p>
+<p>cp  (cp file) 复制文件或目录</p>
+<p>rm (remove) 移除文件或目录</p>
+<p>mv  (move file) 移动文件与目录</p>
+<table>
+<thead>
+<tr>
+<th align="center">命令代码</th>
+<th align="center">意思</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">ls</td>
+<td align="center">查询当前目录下的所有文件</td>
+</tr>
+<tr>
+<td align="center">cd  /*/ *</td>
+<td align="center">跳转文件夹</td>
+</tr>
+<tr>
+<td align="center">mkdir   /usr/local/java/</td>
+<td align="center">在/usr/local/下面创建java文件夹</td>
+</tr>
+<tr>
+<td align="center">mv</td>
+<td align="center">移动指令</td>
+</tr>
+<tr>
+<td align="center">rm -f</td>
+<td align="center">删除某个文件</td>
+</tr>
+<tr>
+<td align="center">rm -rf</td>
+<td align="center">逐次删除文件夹</td>
+</tr>
+<tr>
+<td align="center">tar -zxvf jdk-8u171-linux-x64.tar.gz -C /usr/local/java/</td>
+<td align="center">解压到新建目录</td>
+</tr>
+<tr>
+<td align="center">vim /etc/profile</td>
+<td align="center">打开文件</td>
+</tr>
+<tr>
+<td align="center">javac  hello.java <br>  java hello</td>
+<td align="center">运行java程序hello.java</td>
+</tr>
+<tr>
+<td align="center">cd/etc  —–   vim profile   —-按下i才能进入编辑状态（有时候需要加enter？不知道为什么？）—-  退出命令（:wq）    —–  :q!是不保存文件退出</td>
+<td align="center"></td>
+</tr>
+<tr>
+<td align="center">cat  /proc/version</td>
+<td align="center">查看内核版本</td>
+</tr>
+<tr>
+<td align="center">按ESC键 跳到命令模式，然后：<br>:w 保存文件但不退出vi<br>:w file 将修改另外保存到file中，不退出vi<br>:w! 强制保存，不推出vi<br>:wq 保存文件并退出vi<br>:wq! 强制保存文件，并退出vi<br>q: 不保存文件，退出vi<br>:q! 不保存文件，强制退出vi<br>:e! 放弃所有修改，从上次保存文件开始再编辑</td>
+<td align="center"></td>
+</tr>
+<tr>
+<td align="center">pwd</td>
+<td align="center">显示目前的</td>
+</tr>
+</tbody></table>
+<a id="more"></a>  
+
+<h4 id="cent-OS配置Java环境"><a href="#cent-OS配置Java环境" class="headerlink" title="cent OS配置Java环境"></a>cent OS配置Java环境</h4><ol>
+<li><p>下载 jdk（一定要使用国内镜像 – 贴一个华为云的镜像网址 – <a href="https://repo.huaweicloud.com/java/jdk/" target="_blank" rel="noopener">https://repo.huaweicloud.com/java/jdk/</a>）</p>
+</li>
+<li><p>创建/usr/local/java/ (注意：操作文件时最后不能有/，这个/是针对文件夹的)</p>
+</li>
+<li><p>将下载的文件用Xftp放到/usr/local/java/文件夹下面</p>
+</li>
+<li><p>解压 tar -zxvf  ***（注意可以用tab来自动补全文件名）</p>
+</li>
+<li><p>编辑 JAVA_HOME  (–  vim /etc/profile  –  输入以下环境配置语句)</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">export JAVA_HOME=/usr/local/java/jdk1.8.0_151</span><br><span class="line"></span><br><span class="line">export CLASSPATH=.:$JAVA_HOME/jre/lib/rt.jar:$JAVA_HOME/lib/dt.jar:$JAVA_HOME/lib/tools.jar</span><br><span class="line"></span><br><span class="line">export PATH=$PATH:$JAVA_HOME/bin</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>编译一下 （source /etc/profile）</p>
+</li>
+<li><p>测试一下 （java -version     javac -version）</p>
+</li>
+</ol>
+<h4 id="cent-OS配置tomcat服务器"><a href="#cent-OS配置tomcat服务器" class="headerlink" title="cent OS配置tomcat服务器"></a>cent OS配置tomcat服务器</h4><ol>
+<li>依然是下载文件<br><img src="/images/tomacat_version_change.png" alt="文件"></li>
+<li>和上面步骤一样   导入-解压</li>
+<li>修改一下tomcat文件夹名字，为了以后输入方便  mv  tomcat8.5.50/  tomcat</li>
+<li>测试一下安装是否成功 首先进入bin文件夹  –  cd  /usr/local/tomcat/bin  –  然后运行  –  sh startup.sh   </li>
+</ol>
+<h6 id="tomcat问题分析："><a href="#tomcat问题分析：" class="headerlink" title="tomcat问题分析："></a>tomcat问题分析：</h6><ol>
+<li>一般云服务器需要你打开端口才能访问的，我用的是阿里云学生服务器，需要在安全配置组里面打开8080通道才能访问。</li>
+</ol>
+<h4 id="cent-OS配置MySQL数据库（换一种方式，利用yum安装）"><a href="#cent-OS配置MySQL数据库（换一种方式，利用yum安装）" class="headerlink" title="cent OS配置MySQL数据库（换一种方式，利用yum安装）"></a>cent OS配置MySQL数据库（换一种方式，利用yum安装）</h4><ol>
+<li><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">yum list|grep mysql # 得到yum服务器上mysql数据库的可下载版本信息</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>算了 贴大佬博客–<a href="https://www.cnblogs.com/brianzhu/p/8575243.html" target="_blank" rel="noopener">https://www.cnblogs.com/brianzhu/p/8575243.html</a></p>
+</li>
+<li><p>还有菜鸟的教程–<a href="https://www.runoob.com/mysql/mysql-install.html" target="_blank" rel="noopener">https://www.runoob.com/mysql/mysql-install.html</a></p>
+</li>
+</ol>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/Linux/" rel="tag"># -Linux</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2019/05/09/Servlet基础/" rel="prev" title="Servlet基础">
+      <i class="fa fa-chevron-left"></i> Servlet基础
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2019/05/22/Fragment基础/" rel="next" title="Fragment学习">
+      Fragment学习 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#Linux代码指令"><span class="nav-number">1.</span> <span class="nav-text">Linux代码指令</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#cent-OS配置Java环境"><span class="nav-number">2.</span> <span class="nav-text">cent OS配置Java环境</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#cent-OS配置tomcat服务器"><span class="nav-number">3.</span> <span class="nav-text">cent OS配置tomcat服务器</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#tomcat问题分析："><span class="nav-number">3.0.1.</span> <span class="nav-text">tomcat问题分析：</span></a></li></ol></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#cent-OS配置MySQL数据库（换一种方式，利用yum安装）"><span class="nav-number">4.</span> <span class="nav-text">cent OS配置MySQL数据库（换一种方式，利用yum安装）</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Hetianhan"
+      src="/images/hmbb.gif">
+  <p class="site-author-name" itemprop="name">Hetianhan</p>
+  <div class="site-description" itemprop="description">西柚在读废物研究生，野生程序员，擅长吃喝玩乐</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">40</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">9</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">9</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/HuaHuaHuaHe" title="GitHub → https://github.com/HuaHuaHuaHe" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:tianhan.he@foxmail.com" title="E-Mail → mailto:tianhan.he@foxmail.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://weibo.com/yourname" title="Weibo → https://weibo.com/yourname" rel="noopener" target="_blank"><i class="fab fa-weibo fa-fw"></i>Weibo</a>
+      </span>
+  </div>
+
+
+  <div class="links-of-blogroll motion-element">
+    <div class="links-of-blogroll-title"><i class="fa fa-link fa-fw"></i>
+      友链
+    </div>
+    <ul class="links-of-blogroll-list">
+        <li class="links-of-blogroll-item">
+          <a href="https://chenyifaer.com/tags/" title="https://chenyifaer.com/tags/" rel="noopener" target="_blank">陈一发儿</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="https://repo.huaweicloud.com/java/jdk/" title="https://repo.huaweicloud.com/java/jdk/" rel="noopener" target="_blank">华为镜像</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="http://www.yinfans.me/" title="http://www.yinfans.me/" rel="noopener" target="_blank">yfs(电影资源)</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="http://lightzhan.xyz/" title="http://lightzhan.xyz/" rel="noopener" target="_blank">light教程</a>
+        </li>
+    </ul>
+  </div>
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2023</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Hetianhan</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://pisces.theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a> 强力驱动
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  
+  <script color='0,0,255' opacity='0.5' zIndex='-1' count='99' src="/lib/canvas-nest/canvas-nest.min.js"></script>
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+<script src="/js/utils.js"></script><script src="/js/motion.js"></script>
+<script src="/js/schemes/pisces.js"></script>
+<script src="/js/next-boot.js"></script>
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>
