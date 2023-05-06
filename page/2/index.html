@@ -164,6 +164,152 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://huahuahuahe.github.io/2021/03/24/注解和注释/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/hmbb.gif">
+      <meta itemprop="name" content="Hetianhan">
+      <meta itemprop="description" content="西柚在读废物研究生，野生程序员，擅长吃喝玩乐">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hetianhan的博客">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2021/03/24/注解和注释/" class="post-title-link" itemprop="url">注解和注释</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2021-03-24 09:44:25 / 修改时间：11:03:52" itemprop="dateCreated datePublished" datetime="2021-03-24T09:44:25+08:00">2021-03-24</time>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h4 id="1-内置注解"><a href="#1-内置注解" class="headerlink" title="1. 内置注解"></a>1. 内置注解</h4><p>@Override 重写</p>
+<p>@Deprecated 不推荐使用</p>
+<p>@SuppressWarnings(“all”)</p>
+<h4 id="2-元注解"><a href="#2-元注解" class="headerlink" title="2. 元注解"></a>2. 元注解</h4><p>@Target 表明注解能用在什么地方 </p>
+<p>@Retention 表示需要在什么基别保存该注释信息，用于描述主机的生命周期</p>
+<p>@Document 表示是否将注解生成在JAVAdoc中</p>
+<p>@Inherited 自类可以继承弗雷德注解</p>
+<h4 id="3-如何定义注解"><a href="#3-如何定义注解" class="headerlink" title="3.如何定义注解"></a>3.如何定义注解</h4><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Target</span>(Value = &#123;ElementType.METHOD,ElementType.TYPE&#125;)</span><br><span class="line"><span class="meta">@Retention</span>(RetentionPolicy.RUNTIME)</span><br><span class="line"><span class="meta">@interface</span> MyAnnotation&#123;&#125;</span><br></pre></td></tr></table></figure>
+
+<p><img src="//huahuahuahe.github.io/2021/03/24/注解和注释/dyzj.jpg" alt="shile"></p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://huahuahuahe.github.io/2021/02/13/Linux/2021-02-13-Linux/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/hmbb.gif">
+      <meta itemprop="name" content="Hetianhan">
+      <meta itemprop="description" content="西柚在读废物研究生，野生程序员，擅长吃喝玩乐">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hetianhan的博客">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2021/02/13/Linux/2021-02-13-Linux/" class="post-title-link" itemprop="url">centOS虚拟机问题汇总</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2021-02-13 15:10:00" itemprop="dateCreated datePublished" datetime="2021-02-13T15:10:00+08:00">2021-02-13</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2021-02-21 13:48:57" itemprop="dateModified" datetime="2021-02-21T13:48:57+08:00">2021-02-21</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Linux/" itemprop="url" rel="index"><span itemprop="name">-Linux</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h3 id="1-虚拟机网络设置问题"><a href="#1-虚拟机网络设置问题" class="headerlink" title="1 虚拟机网络设置问题"></a>1 虚拟机网络设置问题</h3><p>我用的是如下的网络设置：NAT模式。<img src="//huahuahuahe.github.io/2021/02/13/Linux/2021-02-13-Linux/2021-02-21-Test-md%5C1601386281283.png" alt></p>
+<p>ping命令时候遇到问题：network is unreachable。</p>
+<p>解决方法：</p>
+<p>​    1. 修改网络配置文件：<code>vi /etc/sysconfig/network-scripts/ifcfg-ens33</code></p>
+<pre><code>2. 将ONBOOT=no改成ONBOOT=yes
+ 3. 重启网络服务：`service network restart`</code></pre>
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="https://huahuahuahe.github.io/2021/02/08/多线程/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -383,87 +529,6 @@
 <p>2、传输层将数据分割为多段，便于传输并可以往里面添加信息，比如当前的端口号等，交给Internet。（这时的数据单元是数据流）；</p>
 <p>3、Internet开始在</p>
 
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://huahuahuahe.github.io/2020/09/27/祈福小记/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/hmbb.gif">
-      <meta itemprop="name" content="Hetianhan">
-      <meta itemprop="description" content="西柚在读废物研究生，野生程序员，擅长吃喝玩乐">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Hetianhan的博客">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2020/09/27/祈福小记/" class="post-title-link" itemprop="url">杂七杂八的小记</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2020-09-27 00:00:00" itemprop="dateCreated datePublished" datetime="2020-09-27T00:00:00+08:00">2020-09-27</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2021-06-03 18:16:19" itemprop="dateModified" datetime="2021-06-03T18:16:19+08:00">2021-06-03</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Life/" itemprop="url" rel="index"><span itemprop="name">-Life</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h4 id="2020-09-27"><a href="#2020-09-27" class="headerlink" title="2020-09-27"></a>2020-09-27</h4><p>​        未来会是什么样子谁会知道呢？希望您能天天开心，万事胜意吧！也祝我早点get offer吧，研三的废物时光就要结束了啊！读了好多好多年的书啊，我会成为什么样子的人呢？你会继续到自己憧憬的学府继续学习吗？会有更好的明天等着我，等着你，等着我的傻子朋友们吗？？如果真有来自2029年的询问？那我会在2029年想起9年前这篇东西吗？再次看到这博客会是什么样子的呢？日子会怎么样呢？我会有机会和你一起看吗？中国真正崛起了吗？华为、中芯国际顶住压力了吗？应该会再想一想当时喜欢的那个笑起来超超超超可爱的女生吧⭐⭐。</p>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/2020/09/27/祈福小记/#more" rel="contents">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
       
     </div>
 
@@ -882,90 +947,6 @@
           <!--noindex-->
             <div class="post-button">
               <a class="btn" href="/2020/04/20/小记：疫情期间认真准备实习/#more" rel="contents">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://huahuahuahe.github.io/2020/03/25/MyBatis及-SpringBoot解决代码冗余/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/hmbb.gif">
-      <meta itemprop="name" content="Hetianhan">
-      <meta itemprop="description" content="西柚在读废物研究生，野生程序员，擅长吃喝玩乐">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Hetianhan的博客">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2020/03/25/MyBatis及-SpringBoot解决代码冗余/" class="post-title-link" itemprop="url">MyBatis及 SpringBoot解决代码冗余</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2020-03-25 00:00:00" itemprop="dateCreated datePublished" datetime="2020-03-25T00:00:00+08:00">2020-03-25</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2021-01-24 02:47:21" itemprop="dateModified" datetime="2021-01-24T02:47:21+08:00">2021-01-24</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Java/" itemprop="url" rel="index"><span itemprop="name">-Java</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h4 id="SpringBoot整合JDBCTemplate以及事务管理"><a href="#SpringBoot整合JDBCTemplate以及事务管理" class="headerlink" title="SpringBoot整合JDBCTemplate以及事务管理"></a>SpringBoot整合JDBCTemplate以及事务管理</h4><p>  –  贴一篇博客<a href="https://blog.csdn.net/wx5040257/article/details/79465307" target="_blank" rel="noopener">https://blog.csdn.net/wx5040257/article/details/79465307</a></p>
-<h1 id="MyBatis"><a href="#MyBatis" class="headerlink" title="MyBatis"></a>MyBatis</h1><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">&lt;!--mybatis--&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.mybatis<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>mybatis<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br></pre></td></tr></table></figure>
-
-<h4 id="⭐⭐-配置注意一个问题：mybatis-config和applicaton-properties中都要配置mysql数据库的连接信息"><a href="#⭐⭐-配置注意一个问题：mybatis-config和applicaton-properties中都要配置mysql数据库的连接信息" class="headerlink" title="⭐⭐ 配置注意一个问题：mybatis-config和applicaton.properties中都要配置mysql数据库的连接信息"></a>⭐⭐ 配置注意一个问题：mybatis-config和applicaton.properties中都要配置mysql数据库的连接信息</h4>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/2020/03/25/MyBatis及-SpringBoot解决代码冗余/#more" rel="contents">
                 阅读全文 &raquo;
               </a>
             </div>
